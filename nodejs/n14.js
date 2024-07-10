@@ -10,7 +10,8 @@ app.get("/", (req, res) => {
 
 app.get("/list", (req, res) => {
   let list = "<h2>파일 리스트</h2>";
-  fs.readdir(__dirname + "", "utf-8", (err, data) => {
+  fs.readdir(__dirname, "utf-8", (err, data) => {
+    console.log(__dirname);
     data.forEach((v, i) => {
       list += `<br><a href="${v}">${v}</a>`;
     });
