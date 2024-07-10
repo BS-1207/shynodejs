@@ -6,7 +6,7 @@ const port = 3000;
 
 app.use(logger("tiny"));
 
-app.use("/", express.static(__dirname + "/html"));
+app.use("/", express.static(_rname + "/html"));
 app.get("/list", (req, res) => {
   let list = "<h2>파일 리스트</h2>";
   fs.readdir(__dirname + "/html", "utf-8", (err, data) => {

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/data" method="get">
+      <fieldset>
+        <legend><h2>내용을 입력하렴</h2></legend>
+        <ul class="app_list">
+          <li class="clear" style="list-style: none;">
+          <label for="title">제목</label>
+          <input type="text" id="tit" name="title" /><br />
+          <label for="content">내용</label>
+          <textarea id="con" name="content"></textarea><br />
+          </li>
+          <input type="submit" value="저장하기" />
+          <input type="button" value="리스트" onclick="location.href='/list'" />
+      </fieldset>
+    </form>
+  </body>
+</html>

@@ -3,18 +3,29 @@ const logger = require("morgan");
 const fs = require("fs");
 const port = 3000;
 const app = express();
+const path = require("path");
 
 app.get("/", (req, res) => {
-  res.send("안녕하세요! Express로 만든 서버입니다.");
+  res.send(
+    `<h1>안녕하세요! Express로 만든 서버입니다.</h1><br><h2><a href="/list">파일리스트로</a></h2>`
+  );
 });
 
+app.use("/list", express.static(__dirname));
 app.get("/list", (req, res) => {
-  let list = "<h2>파일 리스트</h2>";
   fs.readdir(__dirname, "utf-8", (err, data) => {
     console.log(__dirname);
-    data.forEach((v, i) => {
-      list += `<br><a href="${v}">${v}</a>`;
+    console.log(data);
+    let list = "<h1>파일 리스트</h1>";
+    data.forEach((v) => {
+      list += `<br><a href="${v}" style="text-decoration:none">${v}</a>   <a href="${v}" download style="text-decoration:none">다운로드</a>`;
     });
+
+    /* data.forEach((v, i) => {
+      list += `<br>${
+        i + 1
+      } <a href="${v}" style="text-decoration:none">${v}</a>   <a href="${v}" download style="text-decoration:none">다운로드</a>`;
+    }); */
     res.send(list);
   });
 });
