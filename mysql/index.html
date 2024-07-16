@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background-color: beige;
+      }
+      fieldset {
+        width: 250px;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      legend {
+        padding: 5px 10px;
+        border: 1px solid ccc;
+        font-weight: bolder;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      input {
+        width: calc(100%-22px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+      button {
+        background-color: lightgray;
+        color: black;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      button:hover {
+        background-color: black;
+        color: white;
+        transition-delay: 2;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <fieldset>
+      <legend>MySql</legend>
+      <form action="data" id="data">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" /><br />
+        <label for="dob">Date of Birthday</label>
+        <input type="date" id="dob" name="dob" /><br />
+        <button type="submit">버튼</button>
+        <button type="reset">초기화</button>
+      </form>
+    </fieldset>
+  </body>
+</html>
