@@ -30,8 +30,8 @@ app.get("/", (req, res) => {
     }
     let printlist="";
     console.log(result);
-    result.forEach((result) =>{
-      printlist =+ reulst;
+    result.forEach((v) =>{
+      printlist =+ v;
       printlist =+ "<br>";
     });
   console.log(`웹에 정상 접속하였습니다.`);
