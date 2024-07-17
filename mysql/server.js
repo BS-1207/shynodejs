@@ -55,15 +55,7 @@ app.get("/data", (req, res) => {
   );
 });
 
-/* app.get("/list", (req, res) => {
-  db.query("SELECT * FROM web", (err, result) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    console.log(result);
-  });
-}); */
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
