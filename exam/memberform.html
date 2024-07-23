@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 20px;
+      }
+      fieldset {
+        width: 330px;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      legend {
+        padding: 5px 10px;
+        border: 1px solid ccc;
+        font-weight: bolder;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      input {
+        width: calc(100%-22px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: blanchedalmond;
+      }
+      button {
+        background-color: lightgrey;
+        color: black;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      button:hover {
+        background-color: black;
+        color: white;
+        transition-delay: 2;
+      }
+      .input {
+        width: 305px;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <fieldset>
+      <legend>Mysql</legend>
+      <form action="/data" id="data" method="get">
+        <label for="id">아이디</label>
+        <input type="text" id="id" name="id" class="input" /><br />
+        <label for="name">이름</label>
+        <input type="text" id="name" name="name" class="input" /><br />
+        <label for="age">나이</label>
+        <input type="text" id="age" name="age" class="input" /><br />
+        <label for="email">이메일</label>
+        <input type="text" id="email" name="email" class="input" /><br />
+        <button type="submit">제출</button>
+        <button type="reset">내용지우기</button>
+        <button type="button" onclick="location.href='/list'">
+          리스트 보기
+        </button>
+      </form>
+    </fieldset>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>구구단</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      h2 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      input {
+        width: 94%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      #bt {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 4px;
+        background-color: gray;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      #bt:hover {
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <fieldset>
+      <form method="POST" action="/">
+        <legend><h2>구구단</h2></legend>
+        <input
+          type="button"
+          onclick="location.href='/gugu'"
+          value="구구단"
+          id="bt" />
+      </form>
+    </fieldset>
+  </body>
+</html>
