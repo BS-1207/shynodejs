@@ -25,31 +25,37 @@
         margin-top: 50px;
         margin-bottom: 20px;
       }
-    </style>
-  </head>
-  <body>
-    <div
-      id="all"
-      class="f"
-      style="
-        background-color: #134b70;
+      div{
         padding: 20px 35px;
         margin: 20px auto;
         width: fit-content;
         border-radius: 10px;
-      ">
-      <h1 style="color: white; text-align: center; margin-top: 20px">
-        파일 다운로드 및 업로드
-      </h1>
-      <div
-        id="fileList"
-        class="container text-center f1"
-        style="background-color: #eeeeee">
+      }
+      #all{
+        background-color: #134b70;
+        
+      }
+      #fileList{
+        background-color: #eeeeee;
+      }
+      #fileUpload{
+        background-color: #508c9b;
+      }
+      h1 {
+         color: white; text-align: center ; margin-top: 20px;
+      }
+      table {
+        text-align: center; width: fit-content; display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="all" class="f">
+      <h1>파일 다운로드 및 업로드</h1>
+      <div id="fileList" class="container text-center f1">
         <h2>파일 리스트</h2>
         <br />
-        <table
-          class="table"
-          style="text-align: center; width: fit-content; display: inline-block">
+        <table class="table">
           <thead class="table-dark">
             <tr>
               <th scope="col">파일명</th>
@@ -58,7 +64,7 @@
               <th scope="col">파일생성날짜</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id="fileTableBody"></tbody>
         </table>
       </div>
       <div
@@ -70,7 +76,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">파일 전송 완료</h5>
+              <h5 class="modal-title">파일 업로드 결과</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -78,8 +84,8 @@
                 aria-label="Close"
                 data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-body">
-              <p id="modalBody">파일이 정상 전송되었습니다.</p>
+            <div class="modal-body" >
+              <p id="modalBody" style="white-space: pre-wrap;">파일이 정상 전송되었습니다.</p>
             </div>
             <div class="modal-footer">
               <button
@@ -95,8 +101,7 @@
       </div>
       <div
         id="fileUpload"
-        class="container text-center f1"
-        style="width: 400px; background-color: #508c9b">
+        class="container text-center f1">
         <div>
           <h2>파일 업로드</h2>
           <br /><br />
@@ -128,29 +133,39 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
       <script>
-        document
-          .querySelector("form")
-          .addEventListener("submit", function (event) {
-            let input = document.getElementById("inputGroupFile02");
-            let file = input.files[0];
-            if (file) {
-              let fileName = file.name;
-              document.getElementById("modalBody").textContent =
-                fileName + "이 업로드 완료되었습니다.";
-            }
-          });
-          $("input[name=ufile").on("change", function(){
-            let maxSize = 5 * 1024 * 1024; //* 5MB 사이즈 제한
-            let fileSize = this.files[0].size; //업로드한 파일용량
+        function fetchFileList() {
+          fetch('/file-list')
+           .then(response => response.text())
+           .then(html => {
+             document.getElementById('fileTableBody').innerHTML = html;
+           })
+           .catch(error => console.error('파일 리스트를 업데이트 하지 못했습니다.: ', error));
+           //.catch(error => console.error('Error fetching file list:', error));
+          }
 
-            if(fileSize > maxSize){
-                alert("파일첨부 사이즈는 5MB 이내로 가능합니다.");
-                $(this).val(''); //업로드한 파일 제거
-                return;
+        // 페이지 로드 시 파일 리스트 가져오기
+        document.addEventListener('DOMContentLoaded', fetchFileList);
+        
+        document.querySelector('form').addEventListener('submit', function (event) {
+          let input = document.getElementById('inputGroupFile02');
+          let file = input.files[0];
+          if (file) {
+            let fileName = file.name;
+            let maxSizeMB = 5;
+            let maxSizeBytes = maxSizeMB * 1024 * 1024;
+            if (file.size > maxSizeBytes) {
+              const filesize = (file.size/1024/1024).toPrecision(2);
+              alert('업로드하려는 파일 용량이 ' + filesize + 'MB 입니다. 파일 크기가 너무 큽니다.');
+              event.preventDefault();
+              document.getElementById('modalBody').textContent =
+              fileName + '이 업로드 실패되었습니다. 파일용량이 ' + filesize + 'MB 입니다. 5MB이하의 파일을 선택해 주세요.';
+              return;
+            } else {
+              document.getElementById('modalBody').textContent = fileName + '이 업로드 완료되었습니다.';
             }
+          }
+        });
       </script>
     </div>
-    `;
   </body>
 </html>
-`;
