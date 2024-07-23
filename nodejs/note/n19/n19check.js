@@ -13,33 +13,18 @@ app.use(express.urlencoded({ extended: true })); // 확장개념 본문을 파�
 
 app.use(logger());
 
+app.use("/", express.static(__dirname));
+
 app.get("/", (req, res) => {
-  res.sendFile(`${__dirname}/index.html`);
-});
-
-app.get("/file-list", (req, res) => {
-  console.log("호출됨");
-  fs.readdir(_path, (err, files) => {
-    if (err) {
-      return res.status(500).send("Failed to read directory");
-    }
-
-    const rows = files
-      .map((file) => {
-        const filePath = path.join(_path, file);
-        const stats = fs.statSync(filePath);
-        return `
-        <tr>
-          <td><a href="${file}">${file}</a></td>
-          <td><a href="${file}" download>다운로드</a></td>
-          <td>${filePath}</td>
-          <td>${stats.birthtime}</td>
-        </tr>
-      `;
-      })
-      .join("");
-
-    res.send(rows);
+  fs.readdir(__dirname, "utf-8", (err, data) => {
+    /*for (let i = 0; i <tbody data.length; i++) {
+      list += "<br><a href=" + data[i] + ">" + data[i] + "</a>";
+    }*/
+    data.forEach((v) => {
+      list += `<tr><td><a href="${v}" style="text-decoration:none">${v}</a></td>`;
+      list += `<td><a href="${v}" download style="text-decoration:none">다운로드</a></td><td></td><td></td></tr>`;
+    });
+    res.send(list);
   });
 });
 
