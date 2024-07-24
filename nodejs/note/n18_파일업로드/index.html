@@ -9,6 +9,26 @@
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous" />
+    <script>
+     /* function checkSize(input) {
+        let limitSize = 10;
+        const checklSize = limitSize * 1024 * 1024;
+        if (input.file[0].size > 1024*1024) {
+          const fileSize = (input.files[0].size / 1024 / 1024).toFixed(2);;
+        } else if (input.file[0].size > 1024) {
+          const fileSize = input.files[0].size;
+        }
+
+        if (input.files[0].size > checklSize ) {
+          alert(input.files[0].name + "은 " + fileSize + "MB입니다. 10MB가 초과하였습니다.");  
+        } else {
+          alert(input.files[0].name + "은 " + fileSize + "MB입니다. 10MB이하 입니다.");  
+        }
+
+        console.log(input.files[0].name, input.files[0].size);
+        //alert("파일 사이즈가 10MB를 초과합니다.")
+      }*/
+    </script>
   </head>
   <body>
   <div class="modal" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
@@ -16,7 +36,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">파일 전송 완료</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-dismiss="modal"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <p id="modalBody">파일이 정상 전송되었습니다.</p>
@@ -126,8 +146,11 @@
           <div class="accordion-body">
             Test UpLoad<br><br>
             <form class="input-group mb-3" action="/up" method="POST" enctype="multipart/form-data"> <!-- 파일 전송시 인코딩 방식 설정-->
-                <input type="file" class="form-control" id="inputGroupFile02" name="ufile"> <!-- ufile이라는 이름에 담에서 파일 전송-->
-                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">UpLoad</button> <!-- 버튼 submit을 통해 위 설정에 따라 제출-->
+                <!-- 업로드 파일 용량 체크-->
+                <input type="file" class="form-control" id="inputGroupFile02" name="ufile" onchange="checkSize(this)"> <!-- onchange --><!-- ufile이라는 이름에 담에서 파일 전송-->
+                <!-- 모달창 열기, submit하기-->
+                <button type="submit" class="btn btn-primary" id="uploadBtn" data-bs-toggle="modal" data-bs-target="#modal" disabled>UpLoad</button>
+                <!--<button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" disabled>UpLoad</button>--> <!-- 버튼 submit을 통해 위 설정에 따라 제출-->
             </form>
           </div>
         </div>
@@ -138,14 +161,42 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
       <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
+        const btnActive = () => document.getElementById("uploadBtn").disabled=false
+        const btnDisable = () => document.getElementById("uploadBtn").disabled=true
+        function checkSize(input) {
+          let limitSize = 10;
+          const checklSize = limitSize * 1024 * 1024;
+          let fileSize=0;
+          if (!!input.files && input.files[0].size > checklSize) {
+            fileSize = (input.files[0].size / 1024 / 1024).toFixed(2) + "MBytes";
+            alert(input.files[0].name + "은 " + fileSize + "입니다. 10MB가 초과하였습니다.");  
+            btnDisable()
+          } else {
+            if (input.files[0].size > 1024*1024) {
+              fileSize = (input.files[0].size / 1024 / 1024).toFixed(2) + "MBytes";
+              console.log(fileSize)
+            } else if (input.files[0].size > 1024) {
+              fileSize = (input.files[0].size / 1024).toFixed(2) + "KBytes";
+              console.log(fileSize)
+            } else {
+              fileSize = input.files[0].size + "Bytes";
+              console.log(fileSize)
+            }
+            alert(input.files[0].name + "은 " + fileSize + "입니다. 10MB이하 입니다.");
+            btnActive()
+          }
+  
+          console.log(input.files[0].name, input.files[0].size);
+          //alert("파일 사이즈가 10MB를 초과합니다.")
+        }
+        /*document.querySelector('form').addEventListener('submit', function(event) {
           let input = document.getElementById('inputGroupFile02');
           let file = input.files[0];
           if (file) {
             let fileName = file.name;
             document.getElementById('modalBody').textContent = fileName +'이 업로드 완료되었습니다.';
           }
-        });
+        });*/
       </script>
   </body>
 </html>

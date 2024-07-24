@@ -17,33 +17,28 @@ app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
 
-app.get("/file-list", (req, res) => {
-  console.log("호출됨");
-  fs.readdir(_path, (err, files) => {
-    if (err) {
-      return res.status(500).send("Failed to read directory");
-      // 500 내부 서버 오류는 일반적인 HTTP 상태 코드로 서버에서 문제가 발생하였으나 문제의 구체적인 내용을 표시할 수 없음을 의미
-    }
-
-    const rows = files
-      .map((file) => {
+app.get("/file-list", async (req, res) => {
+  console.log("파일 리스트 호출됨");
+  try {
+    const files = await fs.readdir(_path);
+    const rows = await Promise.all(
+      files.map(async (file) => {
         const filePath = path.join(_path, file);
-        const stats = fs.statSync(filePath);
-        let i = 0;
+        const stats = await fs.stat(filePath);
         return `
         <tr>
-          <td><input type="checkbox" name="checklist" value="${i++}"></td>
           <td><a href="${file}">${file}</a></td>
           <td><a href="${file}" download>다운로드</a></td>
           <td>${filePath}</td>
           <td>${stats.birthtime}</td>
-        </tr>
-      `;
+        </tr>`;
       })
-      .join("");
-
-    res.send(rows);
-  });
+    );
+    const html = `${rows.join("")}`;
+    res.send(html);
+  } catch (err) {
+    res.status(500).send("디렉토리를 읽는 데 실패했습니다.");
+  }
 });
 
 app.use("/", express.static(_path));

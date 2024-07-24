@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h2 {
+        width: 295px;
+        background-color: #111111;
+        color: white;
+        text-align: center;
+      }
+      #wrapper {
+        width: 295px;
+        height: 210px;
+        background-color: lightgrey;
+        text-align: center;
+      }
+      /* 속성 선택자 []  class 속성이 존재하는 요소 모두 선택 */
+      [class] {
+        float: left;
+        width: 30px;
+        height: 30px;
+        border: 1px solid blue;
+        margin: 5px;
+      }
+      /*n+26 26이후 부터 선택*/
+      div:nth-of-type(n + 26) {
+        background-color: yellow;
+      }
+      /*7의 배수 이면서 4를 더한 값*/
+      div:nth-of-type(7n + 4) {
+        color: blue;
+      }
+      /*처음부터 8일까지 선택*/
+      div:nth-of-type(-n + 8) {
+        background-color: lightgreen;
+      }
+      div:nth-of-type(n + 12):nth-of-type(-n + 18) {
+        color: blueviolet;
+        background-color: beige;
+      }
+      .v {
+        color: orangered;
+        background-color: skyblue;
+      }
+      /*7의 배수 */
+      div:nth-of-type(7n) {
+        color: red;
+        background-color: lemonchiffon;
+      }
+      /*7의 배수의 또 조건
+      div:nth-of-type(7n) {
+        color: red;
+        background-color: lemonchiffon;
+      }*/
+      /* 조건간의 우선순위표 찾아 볼듯 */
+    </style>
+  </head>
+  <body>
+    <h2>2024년 7월 달력</h2>
+    <!-- div#wrapper>p.emp*1+div.box{$}*31 -->
+    <div id="wrapper">
+      <p class="emp"></p>
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+      <div class="box">4</div>
+      <div class="box">5</div>
+      <div class="box">6</div>
+      <div class="box">7</div>
+      <div class="box">8</div>
+      <div class="box">9</div>
+      <div class="box">10</div>
+      <div class="box">11</div>
+      <div class="box v">12</div>
+      <div class="box v">13</div>
+      <div class="box v">14</div>
+      <div class="box v">15</div>
+      <div class="box v">16</div>
+      <div class="box">17</div>
+      <div class="box">18</div>
+      <div class="box">19</div>
+      <div class="box">20</div>
+      <div class="box">21</div>
+      <div class="box">22</div>
+      <div class="box">23</div>
+      <div class="box">24</div>
+      <div class="box">25</div>
+      <div class="box">26</div>
+      <div class="box">27</div>
+      <div class="box">28</div>
+      <div class="box">29</div>
+      <div class="box">30</div>
+      <div class="box">31</div>
+    </div>
+  </body>
+</html>

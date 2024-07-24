@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      p:first-child {
+        color: blue;
+      }
+      p:first-child:after {
+        content: " 즐거워";
+      }
+      p:before,
+      p:after {
+        content: "💗";
+      }
+      p:nth-of-type(n + 2):nth-of-type(-n + 4) {
+        color: red;
+        display: inline;
+      }
+      p:nth-child(3) {
+        color: magenta !important;
+        /*!important는 우선순위를 최고로함 될수 있는데로 사용하지 말것
+        나중에 적용 우선순위를 찾을 때 고생할 수 있음*/
+      }
+      p:nth-last-child(3):after {
+        content: "👻";
+      }
+      p:last-child:after {
+        content: "요 감사합니다.";
+      }
+    </style>
+  </head>
+  <body>
+    <p>오늘도</p>
+    <p>더우면</p>
+    <p>내일도</p>
+    <p>물론</p>
+    <p>덥겠지</p>
+  </body>
+</html>

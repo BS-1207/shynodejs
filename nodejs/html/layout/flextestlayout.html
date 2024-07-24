@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="style/text" href="./rest.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      div {
+        border: 1px solid black;
+        padding: 0;
+      }
+      .wrap {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .wrap > div:first-of-type {
+        height: 65px;
+        background-color: red;
+      }
+      .wrap > div:nth-of-type(2) {
+        height: 70px;
+        background-color: orange;
+      }
+      .wrap > div:nth-of-type(3) {
+        background-color: yellow;
+        display: flex;
+        height: 100%;
+      }
+      .wrap > div > div {
+        margin-top: 20%;
+        height: 80px;
+        flex: 1 1 200px;
+      }
+      .wrap > div > div:nth-of-type(n + 4) {
+        flex: 1 1 200px;
+      }
+      /* 
+      0. reset.css;
+      1. 부모 display:flex
+      [자식 flex: 1 1 0] -> 1 (늘어남, 줄어듬, 기본사이즈)(생략 가능)
+      2. 개념축: 주축 교차축
+      3. html, body { height: 100%} */
+
+      .wrap > div:nth-of-type(3) > div:nth-of-type(1) {
+        background-color: skyblue;
+      }
+      .wrap > div:nth-of-type(3) > div:nth-of-type(2) {
+        background-color: blue;
+      }
+      .wrap > div:nth-of-type(3) > div:nth-of-type(3) {
+        background-color: darkblue;
+      }
+      .wrap > div:nth-of-type(3) > div:nth-of-type(4) {
+        background-color: pink;
+      }
+      .wrap > div:nth-of-type(3) > div:nth-of-type(5) {
+        background-color: darkviolet;
+      }
+      .wrap > div:nth-of-type(3) > div:nth-of-type(6) {
+        background-color: darkmagenta;
+      }
+
+      .wrap > div:last-of-type {
+        background-color: green;
+        height: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div>head</div>
+      <div>nav</div>
+      <div id="content">
+        <div id="column1">1</div>
+        <div id="column2">2</div>
+        <div id="column3">3</div>
+        <div id="column4">4</div>
+        <div id="column5">5</div>
+        <div id="column6">6</div>
+      </div>
+      <div>footer</div>
+    </div>
+  </body>
+</html>

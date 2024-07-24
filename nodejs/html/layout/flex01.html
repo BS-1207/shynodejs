@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .ex-layout {
+        display: flex;
+        flex-direction: column;
+        height: 310px;
+      }
+      .menu {
+        display: flex;
+
+        flex-direction: row;
+        width: 300px;
+        height: 40px;
+        border: 2px solid #87ceeb;
+        background-color: #ddffdd;
+        box-sizing: border-box;
+      }
+      .main {
+        display: flex;
+        box-sizing: border-box;
+      }
+      .left-menu {
+        width: 50px;
+        height: 254px;
+        border: 2px solid red;
+        background-color: orange;
+        box-sizing: border-box;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        height: 254px;
+        border: 2px solid skyblue;
+        background-color: antiquewhite;
+        box-sizing: border-box;
+      }
+      .article {
+        height: 200px;
+        border: 2px solid blue;
+        background-color: lightyellow;
+        box-sizing: border-box;
+      }
+      .comment {
+        height: 50px;
+        border: 2px solid purple;
+        background-color: burlywood;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <!--div.ex-layout>div.menu{globalmenu}+div.main>div.left-menu{left menu}+div.content>div.article{article}+div.comment{comment}-->
+    <div class="ex-layout">
+      <div class="menu">globalmenu</div>
+      <div class="main">
+        <div class="left-menu">left menu</div>
+        <div class="content">
+          <div class="article">article</div>
+          <div class="comment">comment</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

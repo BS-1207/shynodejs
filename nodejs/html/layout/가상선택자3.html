@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      li {
+        list-style: none;
+        padding: 15px;
+        float: left;
+      }
+      li:after {
+        content: "|";
+        float: right;
+        color: #ccc;
+        margin-right: 7px;
+      }
+      li:nth-last-of-type(1):after {
+        content: "";
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>로그인</li>
+      <li>회원가입</li>
+      <li>마이페이지</li>
+      <li>사이트맵</li>
+      <li>고객센타</li>
+    </ul>
+  </body>
+</html>
