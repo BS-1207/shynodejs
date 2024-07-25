@@ -58,5 +58,5 @@
     "pkl": "cd $dir && pkl eval -f yaml $fileName -o $fileNameWithoutExt.yaml",
     "gleam": "gleam run -m $fileNameWithoutExt"
   },
-  "livePreview.defaultPreviewPath": "/nodejs/html/layout/가상선택자2.html"
+  "livePreview.defaultPreviewPath": "/nodejs/html/layout/네비게이터.html"
 }

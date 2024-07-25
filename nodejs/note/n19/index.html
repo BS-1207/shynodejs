@@ -59,6 +59,12 @@
         border-radius: 12px;
         overflow: hidden;
       }
+      th {
+        vertical-align: middle;
+      }
+      #selcol {
+        padding-top: 10px;
+      }
       td {
         overflow: hidden;
       }
@@ -75,6 +81,14 @@
       }
       #seldownBtn {
         display: inline-block;
+      }
+      #fileext {
+        display: inline-block;
+        font-size: medium;
+        font-weight: bold;
+        background: #212529;
+        color: white;
+        border: none;
       }
     </style>
   </head>
@@ -127,8 +141,18 @@
         <table class="table">
           <thead class="table-dark">
             <tr>
-              <th scope="col">파일선택</th>
-              <th scope="col">파일명</th>
+              <th scope="col" id="selfile">파일선택</th>
+              <th scope="col" id="selext">
+                <select
+                  class="form-select form-select-sm"
+                  id="fileext"
+                  aria-label="Small select example">
+                  <option selected>확장자(전체)▼</option>
+                  <option value="1">.jpg</option>
+                  <option value="2">.txt</option>
+                  <option value="3">.hwp</option>
+                </select>
+              </th>
               <th scope="col">다운로드</th>
               <th scope="col">파일경로</th>
               <th scope="col">파일생성날짜</th>
@@ -224,6 +248,8 @@
                 document.getElementById("modalBody").textContent =
                   input.files[0].name + "이 업로드 완료되었습니다.";
               });
+            //확장자 선별법. lastIndexOf(.)로 오른쪽 끝 .을 찾고, split()으로 분리하여 확장자 찾을것
+            //split(lastIndexOf(.))의 느낌 될지 모르겠음.
           }
         }
       </script>

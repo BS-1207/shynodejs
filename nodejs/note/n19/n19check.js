@@ -24,20 +24,49 @@ app.get("/file-list", (req, res) => {
       return res.status(500).send("Failed to read directory");
       // 500 내부 서버 오류는 일반적인 HTTP 상태 코드로 서버에서 문제가 발생하였으나 문제의 구체적인 내용을 표시할 수 없음을 의미
     }
-
+    let i = 0;
     const rows = files
       .map((file) => {
         const filePath = path.join(_path, file);
         const stats = fs.statSync(filePath);
-        let i = 0;
+        const creatdate = stats.birthtime.toLocaleString();
         return `
-        <tr>
-          <td><input type="checkbox" name="checklist" value="${i++}"></td>
-          <td><a href="${file}">${file}</a></td>
-          <td><a href="${file}" download>다운로드</a></td>
-          <td>${filePath}</td>
-          <td>${stats.birthtime}</td>
-        </tr>
+        <TR>
+          <TD><INPUT TYPE="checkbox" NAME="checklist" VALUE="${i++}"></TD>
+          <TD><A href="${file}" id="fileName">${file}</A></TD>
+          <TD><A href="${file}" download>다운로드</A></TD>
+          <TD>${filePath}</TD>
+          <TD>${creatdate}</TD>
+        </TR>
+      `;
+      })
+      .join("");
+
+    res.send(rows);
+  });
+});
+// 파일 확장자별 리스트 변경 예정
+app.get("/fileext-list", (req, res) => {
+  console.log("파일 확장자별 리스트 호출됨");
+  fs.readdir(_path, (err, files) => {
+    if (err) {
+      return res.status(500).send("Failed to read directory");
+      // 500 내부 서버 오류는 일반적인 HTTP 상태 코드로 서버에서 문제가 발생하였으나 문제의 구체적인 내용을 표시할 수 없음을 의미
+    }
+
+    let i = 0;
+    const rows = files
+      .map((file) => {
+        const filePath = path.join(_path, file);
+        const stats = fs.statSync(filePath);
+        return `
+        <TR>
+          <TD><INPUT TYPE="checkbox" NAME="checklist" VALUE="${i++}"></TD>
+          <TD><A href="${file}" id="fileName">${file}</A></TD>
+          <TD><A href="${file}" download>다운로드</A></TD>
+          <TD>${filePath}</TD>
+          <TD>${stats.birthtime}</TD>
+        </TR>
       `;
       })
       .join("");
