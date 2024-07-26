@@ -9,16 +9,7 @@
         const bt = document.getElementById("ok");
         const modal = document.querySelector(".modal");
         const modalBody = document.querySelector(".modal-body");
-        const indiv = document.getElementById("indiv");
-        //bt.addEventListener("click", () => modal.classList.toggle("show")); 토글
-        bt.addEventListener("click", () => modal.classList.add("show"));
-        modal.addEventListener("click", (e) => {
-          modal.classList.remove("show");
-          //modalBody.addEventListener("click", (event) =>
-          //event.stopPropagation()
-          //);
-          indiv.addEventListener("click", (event) => event.stopPropagation());
-        });
+        bt.addEventListener("click", () => modal.classList.toggle("show"));
       });
     </script>
     <style>
@@ -65,12 +56,10 @@
         <div class="modal-title">
           <span>작성자:</span>
         </div>
-        <div id="indiv">
-          <span>제목:</span>
-          <input type="text" id="int" /><br />
-          <span>내용:</span><br />
-          <textarea name="" id="ta" cols="30" row="10"></textarea>
-        </div>
+        <span>제목:</span>
+        <input type="text" /><br />
+        <span>내용:</span><br />
+        <textarea name="" id="" cols="30" row="10"></textarea>
       </div>
     </div>
 

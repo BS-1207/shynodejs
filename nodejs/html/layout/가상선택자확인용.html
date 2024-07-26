@@ -20,8 +20,7 @@
         content: "";
       }
     </style>
-    
-  </head>               
+  </head>
   <body>
     <ul>
       <li id="login" class="list">로그인</li>
@@ -31,17 +30,24 @@
       <li id="center" class="list">고객센타</li>
     </ul>
     <script>
-      const qsa=document.querySelectorAll('li');
-      const qs=document.querySelector('#login');
-      const gei=document.getElementById('login');
-      const get=document.getElementsByTagName('li');
-      const gec=document.getElementsByClassName('list');
+      const qsa = document.querySelectorAll("li");
+      const qsc = document.querySelector(".list");
+      const qs = document.querySelector("#login");
+      const gei = document.getElementById("login");
+      const get = document.getElementsByTagName("li");
+      const gec = document.getElementsByClassName("list");
+      console.log("querySelectorAll:");
       console.log(qsa);
+      console.log("querySelector:class");
+      console.log(qsc);
+      console.log("querySelector:id");
       console.log(qs);
+      console.log("getElementById:");
       console.log(gei);
+      console.log("getElementByTagName:");
       console.log(get);
+      console.log("getElementByClassName:");
       console.log(gec);
-      
     </script>
   </body>
 </html>
