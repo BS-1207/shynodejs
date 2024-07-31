@@ -41,75 +41,161 @@ db.connect((error) => {
 });
 
 app.get("/", (req, res) => {
+  res.sendFile(`${__dirname}/index.html`);
+});
+app.post("/", (req, res) => {
   if (req.session.loggedIn) {
+    console.log("이걸로 호출됨");
+    console.log(req.session.username);
     res.sendFile(`${__dirname}/index.html`);
+    //res.sendFile(`${__dirname}/index.html`);
   } else {
     res.sendFile(`${__dirname}/index.html`);
+  }
+});
+//<div class="profile background-image: url("${url}");">
+app.post("/getUsername", (req, res) => {
+  if (req.session.loggedIn) {
+    const suer = req.session.username;
+    const ctable = "card";
+    const utable = "user";
+    const query = `SELECT U.nick, C.banner, C.profile, C.intro FROM ${utable} U JOIN ${ctable} C ON U.id=C.id WHERE U.id = "${suer}"`;
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("mypage 정보를 가져오는 중 오류가 발생했습니다.");
+        return;
+      }
+      if (results.length === 0) {
+        res.status(404).send("mypage 정보를 찾을 수 없습니다.");
+        return;
+      }
+      const cardview = results[0];
+      const nick = cardview.nick;
+      const banner = cardview.banner;
+      const profile = cardview.profile;
+      const intro = cardview.intro;
+      res.send(`
+        <div class="card">
+        <div class="banner" style="
+          background-image: url('${banner}');
+        ">
+        <div class="profile" style="background-image: url('${profile}')">
+          </div>
+        </div>
+        <h2 class="name">${nick}</h2>
+        <div class="follow-btn" id="follow-btn"><button>follow</button></div>
+        <div class="desc">${intro}</div>
+        </div>
+        </div>`);
+    });
+  } else {
+    res.send(`
+        <div class="card">
+          <div class="banner">
+            <div class="profile">
+            </div>
+          </div>
+          <h2 class="name">로그인 되지 않음</h2>
+          <div class="follow-btn" id="follow-btn"><button>follow</button></div>
+          <div class="desc">로그인 되지 않음</div>
+        </div>
+        `);
   }
 });
 
 app.post("/join", (req, res) => {
   const table = "user";
-  const { user, passwd, name, nick, birth } = req.body;
-  console.log(user, passwd, name, nick, birth);
-  db.query(
-    "INSERT INTO ${user} (id, password, nick, name, birthday) VALUES (?,?,?,?,?)",
-    [user, passwd, nick, name, birth],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
-      console.log(
-        `id: ${user}, password : ${passwd}, name: ${name}, nick: ${nick}, birth: ${birth}`
-      );
-      console.log("Data inserted successfully");
+  const ctable = "card";
+  const { jid, jpasswd, jname, jnick, jbirth, jdesc } = req.body;
+  const query = `INSERT INTO ${table} (id, password, nick, name, birthday) VALUES (?,?,?,?,?)`;
+  console.log(jid, jpasswd, jname, jnick, jbirth, jdesc);
+  const cquery = `INSERT INTO ${ctable} (id, intro) VALUE ("${jid}", "${jdesc}");`;
+  db.query(query, [jid, jpasswd, jnick, jname, jbirth], (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
     }
-  ); // MySQL query here
+  });
+  db.query(cquery, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+  }); // MySQL query here
+  res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
+  console.log(
+    `id: ${jid}, password : ${jpasswd}, name: ${jname}, nick: ${jnick}, birth: ${jbirth}, desc: ${jdesc}`
+  );
+  console.log("Data inserted successfully");
 });
 
 app.post("/login", (req, res) => {
   const table = "user";
   const { id, passwd } = req.body; // get방식은 Query
   console.log(id, passwd);
-  db.query(
-    `select count(*) as c from ${table}
+  const lquery = `select count(*) as c from ${table}
     where strcmp(id, '${id}') = 0 
-    and strcmp(password, '${passwd}') = 0`,
-    (err, results) => {
-      console.log(results);
-      console.log(results[0].c);
-      if (results[0].c == 1) {
+    and strcmp(password, '${passwd}') = 0`;
+  db.query(lquery, (err, results) => {
+    if (results[0].c == 1) {
+      if (id == "admin") {
+        req.session.loggedIn = true;
+        req.session.adminIn = true;
+        /*if (!req.session.num) {
+          req.session.num = 1;
+        } else {
+          req.session.num += 1;
+        }*/
+        req.session.username = id;
+        console.log("관리자가 로그인하였습니다.");
+        res.status(308).location("/").send();
+      } else {
         req.session.loggedIn = true;
         req.session.username = id;
-        console.log("로그인에 성공하였습니다.");
-        //로그인 이후 처리하여 버튼 표시 및 게시판 리스트 클릭 가능하게 트리깅 필요함
-        res.redirect("/");
-      } else {
-        res.send(
-          `<h3>정상적인 로인이 필요합니다</h3><button onclick="location.href='/' ">로그인창으로</button>`
-        );
+        res.status(308).location("/").send();
       }
+      console.log(req.session);
+      console.log(req.sessionID);
+      console.log(req.session.username);
+      console.log(`${id}로그인에 성공하였습니다.`);
+    } else {
+      res.send(
+        `<script>alert("로그인에 실패했습니다.");location.href='/';</script>`
+      );
     }
-  );
+  });
 });
 
-app.post("/logout", (req, res) => {
-  req.session.destroy((e) => {
-    if (e) console.error(e);
+app.get("/logout", (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy((e) => {
+      if (e) console.error(e);
+      res.send(`
+        <div class="card">
+          <div class="banner">
+            <div class="profile">
+            </div>
+          </div>
+          <h2 class="name">로그인 되지 않음</h2>
+          <div class="follow-btn" id="follow-btn"><button>follow</button></div>
+          <div class="desc">로그인 되지 않음</div>
+        </div>
+        <script>alert("로그아웃이 성공하였습니다.");location.href='/';</script>`);
+    });
+  } else {
     res.send(
-      `<script>alert('로그아웃이 완료되었습니다');window.location.href='/'</script>`
-    ); //script window.location.href BoM영역 컨트롤
-  });
+      `<script>alert("로그인 상태가 아닙니다.");location.href='/';</script>`
+    );
+  }
 });
 
 app.post("/list", (req, res) => {
   const table = "board";
-  const que = `SELECT no, title, id, view_count, created_at FROM ${table}`;
-  db.query(que, (err, result) => {
+  const query = `SELECT B.no, B.title, B.id, H.view_count, DATE_FORMAT(B.created_at,'%Y-%m-%d %T') AS created_at FROM ${table} B JOIN hit H ON B.no=H.no ORDER BY B.no DESC`;
+  db.query(query, (err, result) => {
     let list = "";
-    console.log(result);
+    console.log("게시판 리스트 호출됨");
     result.forEach((v) => {
       list += `<tr><td>${v.no}</td><td>${v.title}</td><td>${v.id}</td>
       <td>${v.created_at}</td><td>${v.view_count}</td></tr>`;
@@ -119,37 +205,89 @@ app.post("/list", (req, res) => {
 });
 
 app.post("/write", (req, res) => {
-  const { wno, wtitle, wwriter, wdate, whit, wcontent } = req.body;
-  console.log(wno, wtitle, wwriter, wdate, whit, wcontent);
-  db.query(
-    "INSERT INTO board (title, id, content) VALUES (?,?,?)",
-    [wtitle, wwriter, wcontent],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
-      console.log(
-        `title: ${wtitle}, writer : ${wwriter}, content: ${wcontent}`
-      );
-      console.log("Data inserted successfully");
+  const { wno, wdate, whit, wtitle, wwriter, wcontent } = req.body;
+  console.log(wno, wdate, whit, wtitle, wwriter, wcontent);
+  const table = "board";
+  const query = `INSERT INTO ${table} (title, id, content) VALUES (?,?,?)`;
+  db.query(query, [wtitle, wwriter, wcontent], (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
     }
-  ); // MySQL query here
+    res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
+    console.log(`title: ${wtitle}, writer : ${wwriter}, content: ${wcontent}`);
+    console.log("Data inserted successfully");
+  }); // MySQL query here
 });
 
-app.get("/content", (req, res) => {
-  //const {no, title, writer, content} = req.query;
-  //?? 조회 및 삭제시 굳이 no 이회 다른 정보가 필요한가?
+app.post("/content", (req, res) => {
+  const { no } = req.body;
   const table = "board";
-  const que = `SELECT * FROM ${table} WHERE ${no}`;
-  db.query(que, (err, result) => {
-    let list = "";
-    result.forEach((v) => {
-      list += `<tr><td>${v.no}</td><td>${v.title}</td><td>${v.writer}</td>
-      <td>${v.createat}</td><td>${v.view_count}</td></tr>`;
+  const utable = "hit";
+  const query = `SELECT B.no, B.title, U.nick, B.content, DATE_FORMAT(B.created_at,'%Y-%m-%d %T') AS created_at, H.view_count FROM ${table} B JOIN ${utable} H ON B.no=H.no JOIN user U ON B.id=U.id WHERE B.no = ?`;
+  const cquery = `UPDATE ${utable} SET view_count = view_count + 1 WHERE no = ?`;
+
+  db.query(cquery, [no], (err, hit) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("게시판 조회수를 갱신하는 중 오류가 발생했습니다.");
+      return;
+    }
+    if (hit.affectedRows === 0) {
+      res.status(404).send("게시판 조회수 정보를 찾지 못했습니다.");
+      return;
+    }
+    console.log("조회수 갱신 완료: " + hit.affectedRows);
+
+    db.query(query, [no], (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("게시판 정보를 가져오는 중 오류가 발생했습니다.");
+        return;
+      }
+      if (results.length === 0) {
+        res.status(404).send("게시판 정보를 찾을 수 없습니다.");
+        return;
+      }
+      const board = results[0];
+      console.log(results[0].created_at.toString());
+      console.log(typeof results[0].created_at.toString());
+
+      const bcontent = `
+        <div id="firstLine">
+          <div id="wno">게시번호 <input type="text" id="wnoi" name="ino" class="inpel" value="${board.no}" readonly/></div>
+          <div id="firstLineR">
+            <div id="wdate">작성일시 <input type="text" id="wdatei" name="idate" class="inpel" value="${board.created_at}" readonly/></div>
+            <div id="whit">조회수 <input type="text" id="whiti" name="ihit" class="inpel" value="${board.view_count}" readonly/></div>
+          </div>             
+        </div>
+        <div id="secondLine">제목 <input type="text" id="wtitlei" name="ititle" class="inpel" value="${board.title}" readonly/></div>
+        <div id="thirthLine">작성자 <input type="text" id="wwriteri" name="iwriter" class="inpel" value="${board.nick}" readonly/></div>
+        <div id="forthLine">
+          <h5>내용</h5>
+          <textarea id="wcontenti" name="iwcontent" readonly>${board.content}</textarea>
+        </div>`;
+      res.send(bcontent);
     });
-    res.send(list);
+  });
+});
+
+app.post("/delete", (req, res) => {
+  const table = "board";
+  const { ino, idate, ihit, ititle, inick, icontent } = req.body;
+  const dquery = `DELETE FROM ${table} WHERE no=${ino}`;
+  db.query(dquery, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("게시판 정보를 가져오는 중 오류가 발생했습니다.");
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).send("게시판 정보를 찾을 수 없습니다.");
+      return;
+    }
+    const board = results[0];
+    res.send(`<script>alert("게시글 삭제 성공");location.href='/'</script>`);
   });
 });
 

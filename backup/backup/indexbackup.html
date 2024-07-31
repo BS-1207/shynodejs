@@ -1,0 +1,538 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>게시판</title>
+    <link href="bootstrap-5.3.3-dist/css/bootstrap.min.modified.css" rel="stylesheet">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          // 게시글 목록을 서버에서 가져오는 함수입니다.
+          function fetchBoardList() {
+            fetch("/list", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text(); // 서버에서 HTML 형식의 데이터를 받습니다.
+            })
+            .then(html => {
+              document.getElementById("boardList").innerHTML = html; // 받은 데이터를 게시글 목록에 삽입합니다.
+              addBoardItemClickEvent(); // 게시글 항목 클릭 이벤트를 추가합니다.
+            })
+            .catch(error => {
+              console.error("파일 리스트를 업데이트 하지 못했습니다.: ", error);
+            });
+          }
+      
+          // 게시글 항목에 클릭 이벤트를 추가하는 함수입니다.
+          function addBoardItemClickEvent() {
+            const boardListItems = document.querySelectorAll('#boardList tr>td:nth-child(-n+2)');
+            console.log(boardListItems[0].textContent);
+            boardListItems.forEach(item => {
+              item.addEventListener('click', (e) => {
+                const firstChild = e.target.parentElement.firstElementChild;
+                const boardId = firstChild.textContent; // 클릭한 게시글의 ID를 가져옵니다.
+                console.log("보드아이디");
+                console.log(boardId);               
+                fetchBoardDetails(boardId); // 해당 게시글의 세부 정보를 가져옵니다.
+              });
+            });
+          }
+      
+          // 특정 게시글의 세부 정보를 서버에서 가져오는 함수입니다.
+          function fetchBoardDetails(boardId) {
+            console.log("fetchBDetails호출");
+            console.log(boardId);
+            fetch("/content", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              body: new URLSearchParams({ no: boardId }) // 게시글 ID를 POST 요청의 본문에 추가합니다.
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('네트워크 응답이 없습니다.');
+              }
+              return response.text(); // 서버에서 HTML 형식의 데이터를 받습니다.
+            })
+            .then(html => {
+              populateModal(html); // 받은 데이터를 모달창에 삽입합니다.
+              const modal = new bootstrap.Modal(document.getElementById('modal'));
+              modal.show(); // 모달창을 보여줍니다.
+            })
+            .catch(error => {
+              console.error("게시판 정보를 불러오지 못했습니다.: ", error);
+            });
+          }
+      
+          // 모달창에 HTML 데이터를 삽입하는 함수입니다.
+          function populateModal(html) {
+            const modalBody = document.querySelector("#modal #modalboard");
+            modalBody.innerHTML = html; // 받은 HTML 데이터를 모달창의 본문에 삽입합니다.
+          }
+      
+          // 페이지 로드 시 게시글 목록을 가져옵니다.
+          fetchBoardList();
+
+          // mypage 버튼 클릭 시 우측 패널 토글
+          document.getElementById("mypage").addEventListener("click", () => {
+            const myPageDiv = document.getElementById("dmypage");
+            myPageDiv.classList.toggle("show");
+          });
+        });
+        function loginShowNHide() {
+          
+          const lout=document.querySelectorAll(".logouthide");
+	        const lin=document.querySelectorAll(".loginhide");
+	        if (1) {
+          // lout의 모든 요소에 'btnshow' 클래스 제거
+          lout.forEach(element => {
+            console.log(element);
+            element.classList.remove("btnshow");
+          });
+
+          // lin의 모든 요소에서 'btnshow' 클래스 추가
+          lin.forEach(element => {
+            element.classList.add("btnshow");
+          });
+          }
+         };
+        /*const write = document.getElementById("write");
+        const modal = document.querySelector(".modal");
+        const modalBody = document.querySelector(".modal-body");
+        const indiv = document.getElementById("indiv");
+        //bt.addEventListener("click", () => modal.classList.toggle("show")); 토글
+        write.addEventListener("click", () => modal.classList.add("show"));
+        modal.addEventListener("click", (e) => {
+        modal.classList.remove("show");
+        //modalBody.addEventListener("click", (event) =>
+        //event.stopPropagation()
+        //);
+          indiv.addEventListener("click", (event) => event.stopPropagation());
+          });
+        });*/
+    </script>
+    <style>
+      body {
+        background-color: #201e43;
+        min-width: 800px;
+      }
+      form {
+        margin: 0;
+        padding: 0;
+      }
+      .f {
+        display: flex;
+        flex-direction: column;
+      }
+      .f1 {
+        flex: 1;
+        border-radius: 10px;
+        width: fit-content;
+        margin-top: 50px;
+        margin-bottom: 20px;
+      }
+      input.id, input.passwd {
+        width: 300px;
+        background-color: #000;
+        color: white;
+        border: none;
+      }
+
+      #all {
+        display: flex;
+        background-color: #134b70;
+        height: 80%;
+        padding: 1rem 1rem;
+        margin: 1rem auto;
+        margin-top: 3rem;
+        width: fit-content;
+        border-radius: 10px;
+        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+      }
+      #userinout{
+        margin: 0;
+      }
+      .logouthide{
+        display: inline-block;
+      }
+      .loginhide {
+        display: inline-block;
+      }
+      .btnshow{
+        display: inline-block;
+      }
+     
+      #boardListouter {
+        background-color: #508c9b;
+        padding: 1rem 1rem;
+        margin: 1rem auto;
+        width: fit-content;
+        border-radius: 10px;
+      }
+      #writelist>button, #userinout>button {
+        background-color: #eeeeee;
+        width: fit-content;
+        border-radius: 10px;
+        align-items: center;
+      }
+      .modal-header{
+        flex-wrap: wrap;
+      }
+      .inpel {
+        margin-left: 0.8rem;
+      }
+      .bottombtn {
+        margin: 0;
+      }
+      h1 {
+        color: white;
+        text-align: center;
+      }
+      table {
+        text-align: center;
+        width: fit-content;
+        border-spacing: 0px;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      th {
+        vertical-align: middle;
+      }
+      #modalloginb {
+        display: flex;
+      }
+      #logintable {
+        justify-self: center;
+      }
+      #selcol {
+        padding-top: 10px;
+      }
+      td {
+        overflow: hidden;
+      }
+      form {
+        margin-top: 15px;
+      }
+      #modal{
+        min-width: 800px;
+      }
+      #dmypage {
+        position: fixed;
+        top: 2rem;
+        right: -370px; /* 숨긴 상태에서 오른쪽 밖으로 나가도록 */
+        width: 350px;
+        height: 80%;
+        border-radius: 10px;
+        margin: 1rem;
+        background-color: rgb(245, 220, 183, 0.75);
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        transition: right 0.3s ease; /* 애니메이션 효과 */
+      }
+      #dmypage.show {
+        right: 0; /* 나타나게 할 때 */
+      }
+      .card {
+        overflow: hidden;
+        max-width: 360px;
+        height: 280px;
+        color: white;
+        border-radius: 10px;
+        box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        font: 1.5rem rgba(0, 0, 0, 0.8);
+        background-color: #061236;
+      }
+      .banner {
+        background-image: url("https://cdn.pixabay.com/photo/2020/12/17/00/43/skyscrapers-5838029_640.jpg");
+        display: flex;
+        justify-content: center;
+      }
+      .profile {
+        width: 120px;
+        height: 120px;
+        background-image: url("data:image/jpeg;base64,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");
+        background-size: 120px;
+        border-radius: 50%;
+        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+        transform: translateY(20%);
+        transition: transform 250ms ease;
+      }
+      .profile:hover {
+        transform: translateY(20%) scale(1.3);
+        background-image: url("https://www.shutterstock.com/image-illustration/halloween-creepy-ghost-creature-character-260nw-2359185899.jpg");
+      }
+      .name {
+        text-align: center;
+        padding-top: 10px;
+        font-family: arial;
+        font-weight: bold;
+      }
+      .desc {
+        overflow: hidden;
+        padding: 1rem;
+      }
+      .follow-btn {
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .follow-btn button {
+        font-size: 1.1rem;
+        font-weight: bold;
+        background-color: rgba(100, 100, 200, 0.6);
+        border: none;
+        padding: 0.2rem;
+        outline: none;
+        border-radius: 8px;
+      }
+      .follow-btn button:hover {
+        background-color: azure;
+        transform: scale(1.15);
+      }
+      th {
+        text-align: left;
+      }
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="all" class="f">
+      <h1>충공깽</h1>
+      <hr>
+      <div id="userinout">
+        <button class="btn btn-outline-secondary bottombtn loginhide btnshow" type="button" id="join" data-bs-toggle="modal"
+        data-bs-target="#modaljoin">
+        Join
+        </button>
+        <button
+          class="btn btn-outline-secondary bottombtn loginhide btnshow"
+          type="button"
+          id="login"
+          data-bs-toggle="modal"
+          data-bs-target="#modallogin">
+          Login
+        </button>
+        <button class="btn btn-outline-secondary bottombtn logouthide" type="button" id="mypage">
+          Mypage
+        </button>
+        <button class="btn btn-outline-secondary bottombtn logouthide" type="button" id="logout" onclick="location.href='/logout'">
+          Logout
+        </button>
+      </div>
+      <div id="boardListouter" class="container text-center f1">
+        <h2>억압 게시판</h2>
+        <br />
+        <div>
+          <table class="table">
+           <thead class="table-dark">
+            <tr>
+             <th scope="col" id="num">No.</th>
+              <th scope="col" id="title">제목</th>
+                <th scope="col" id="writer">작성자</th>
+                <th scope="col" id="wdate">작성일</th>
+                <th scope="col" id="hit">조회수</th>
+              </tr>
+            </thead>
+            <tbody id="boardList">
+                            <!-- 샘플 
+                            <tr>
+                              <td>1</td>
+                              <td>거시기</td>
+                              <td>아무개</td>
+                              <td>2024:07:26</td>
+                              <td>10235</td>
+                            </tr>-->
+            </tbody>
+          </table>
+        </div>
+        <div id="writelist" class="container text-center">
+            <button
+              class="btn btn-outline-secondary bottombtn logouthide"
+              type="button"
+              id="write"
+              data-bs-toggle="modal"
+              data-bs-target="#modal">
+              글작성
+            </button>
+        </div>
+      </div>
+      <div
+        class="modal"
+        id="modal"
+        tabindex="-1"
+        aria-labelledby="modal"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form method="POST" action="/write">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button> 
+            </div>
+            <div class="modal-body" id="modalboard">
+              <h5>게시번호</h5><input type="text" id="wno" name="wno" class="inpel" />
+              <h5>작성자</h5><input type="text" id="wwriter" name="wwriter" class="inpel" />
+              <h5>작성일시</h5><input type="text" id="wdate" name="wdate" class="inpel" />
+              <h5>조회수</h5><input type="text" id="whit" name="whit" class="inpel">
+              <h5>제목</h5><input type="text" id="wtitle" name="wtitle" class="inpel" />
+              <p id="modalBody" style="white-space: pre-wrap">
+                <h5>내용</h5>
+                <textarea id="wcontent" name="wcontent"></textarea>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onclick="location.href='/'">
+                Write
+              </button>
+              <button
+                type="reset"
+                class="btn btn-secondary"
+                >
+                Reset
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onclick="location.href='/'">
+                Close
+              </button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal"
+        id="modaljoin"
+        tabindex="-1"
+        aria-labelledby="modal"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">가입</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+          <form method="POST" action="/join">
+            <div class="modal-body">
+              <p id="modalBody" style="white-space: pre-wrap">
+                <table>
+                  <tr><th>ID</th><td><input type="text" id="jid" name="jid" class="inpel" /></td></tr>       
+                  <tr><th>PASSWORD</th><td><input type="password" id="jpasswd" name="jpasswd" class="inpel" /></td></tr>
+                  <tr><th>Name</th><td><input type="text" id="name" name="name" class="inpel" /></td></tr>
+                  <tr><th>Nickname</th><td><input type="text" id="nick" name="nick" class="inpel" /></td></tr>        
+                  <tr><th>Birthday</th><td><input type="date" id="birth" name="birth" class="inpel" /></td></tr>               
+                </table>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                onclick="location.href='/'">
+                Join
+              </button>
+              <button
+                type="reset"
+                class="btn btn-secondary"
+                >
+                Reset
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onclick="location.href='/'">
+                Close
+              </button>
+            </div>
+          </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal"
+        id="modallogin"
+        tabindex="-1"
+        aria-labelledby="modal"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form method="POST" action="/login">  
+            <div class="modal-header modallogin">
+              <p class="tiltlealign">
+              <h4 class="modal-title">로그인</h4>
+              </p>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalloginb">
+              <table id="logintable">
+                <tr><th class="th">ID</th><td><input type="text" id="id" name="id" class="inpel" /></td></tr>
+                <tr><th class="th">PASSWORD</th><td><input type="password" id="passwd" name="passwd" class="inpel" /></td></tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onclick="location.href='/'">
+                Login
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onclick="location.href='/'">
+                Close
+              </button>
+            </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="dmypage">
+      <div class="card">
+        <div class="banner">
+          <div class="profile"></div>
+        </div>
+        <h2 class="name">Choi BongSaeng</h2>
+        <div class="follow-btn"><button>follow</button></div>
+        <div class="desc">그렇쿤화 무서운 쿰을 쿠었쿠나 캄사</div>
+      </div>
+    </div>
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

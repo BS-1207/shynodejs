@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    body {
+        display: flex;
+        flex-direction: column;
+        background-color: #201e43;
+      }
+      #all {
+        background-color: #134b70;
+        height: 80%;
+        padding: 1rem 1rem;
+        margin: 1rem auto;
+        margin-top: 3rem;
+        width: fit-content;
+        border-radius: 10px;
+        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+      }
+      #boardListouter {
+        background-color: #508c9b;
+        padding: 1rem 1rem;
+        margin: 1rem auto;
+        width: fit-content;
+        border-radius: 10px;
+      }
+      button {
+        background-color: #eeeeee;
+        width: fit-content;
+        border-radius: 10px;
+        align-items: center;
+      }
+      .modal-footer>button {
+        background-color: #eeeeee;
+        width: fit-content;
+        border-radius: 10px;
+        align-items: center;
+      }
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1050;
+      }
+      .modal.show {
+        display: block;
+      }
+      .modal-dialog {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+      }
+      .modal-header, .modal-body, .modal-footer {
+        padding: 20px;
+      }
+      .modal-header {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .modal-title {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      .modal-top-close {
+        justify-self: right;
+        text-align: right;
+      }
+      .modal-footer {
+        border-top: 1px solid #dee2e6;
+      }
+      .modalX {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+      .modal-body {
+        padding: 1rem;
+        min-width: 700px;
+        text-align: start;
+      }
+      .modalth {
+        text-align: left;
+        background-color: #eeeeee;
+        color: black;
+      }
+      .modal-footer {
+        text-align: right;
+      }
+      form {
+        margin: 0;
+        padding: 0;
+      }
+      .logouthide {
+        display: inline-block;
+      }
+      .loginhide {
+        display: inline-block;
+      }
+      .btnshow {
+        display: inline-block;
+      }
+      h1 {
+        color: white;
+        text-align: center;
+      }
+      table {
+        text-align: center;
+        vertical-align: middle;
+        width: fit-content;
+        border-collapse: collapse;
+        border-spacing: 0px;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      th {
+        padding: 0.5rem 1rem;
+        background-color: black;
+        color: white;
+      }
+      td {
+        padding: 0.5rem 1rem;
+        background-color: #eeeeee;
+        overflow: hidden;
+      }
+      
+      form {
+        margin-top: 15px;
+      }
+      #dmypage {
+        position: fixed;
+        top: 2rem;
+        right: -370px; /* 숨긴 상태에서 오른쪽 밖으로 나가도록 */
+        width: 350px;
+        height: 80%;
+        border-radius: 10px;
+        margin: 1rem;
+        background-color: rgb(245, 220, 183, 0.75);
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        transition: right 0.3s ease; /* 애니메이션 효과 */
+      }
+      #dmypage.show {
+        right: 0; /* 나타나게 할 때 */
+      }
+      #wrBtnArea {
+        margin-top: 1rem;
+        float: right;
+      }
+      .card {
+        overflow: hidden;
+        max-width: 360px;
+        height: 280px;
+        color: white;
+        border-radius: 10px;
+        box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: column;
+        font: 1.5rem rgba(0, 0, 0, 0.8);
+        background-color: #061236;
+      }
+      .banner {
+        background-image: url("img/skyscrapers-5838029_640.jpg");
+        display: flex;
+        justify-content: center;
+      }
+      .profile {
+        width: 120px;
+        height: 120px;
+        background-image: url("img/joker.jpg");
+        background-size: 120px;
+        border-radius: 50%;
+        box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+        transform: translateY(20%);
+        transition: transform 250ms ease;
+      }
+      .profile:hover {
+        transform: translateY(20%) scale(1.3);
+      }
+      .name {
+        text-align: center;
+        padding-top: 10px;
+        font-family: arial;
+        font-weight: bold;
+      }
+      .desc {
+        overflow: hidden;
+        padding: 1rem;
+      }
+      .follow-btn {
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .follow-btn button {
+        font-size: 1.1rem;
+        font-weight: bold;
+        background-color: rgba(100, 100, 200, 0.6);
+        border: none;
+        padding: 0.2rem;
+        outline: none;
+        border-radius: 8px;
+      }
+      .follow-btn button:hover {
+        background-color: azure;
+        transform: scale(1.15);
+      }
+      #boardWrite {
+        min-width: 700px;
+        width: 800px;
+      }
+      #firstLine {
+        display: flex;
+        flex-direction: row;
+        margin: 0.1rem;
+      }
+      #secondLine {
+        display: flex;
+        margin: 0.1rem;
+      }
+      #thirthLine {
+        display: flex;
+        margin: 0.1rem;
+      }
+      #forthLine {
+        margin: 1rem;
+      }
+      #wno {
+        display: flex;
+        justify-self: flex-start;
+      }
+      #wnoi {
+        width: 80px;
+      }
+      #wdate {
+        display: flex;
+        justify-items: right;
+      }
+      #wdatei {
+        width: 130px;
+      }
+      #whit {
+        display: flex;
+      }
+      #whiti {
+        width: 80px;
+      }
+      
+      #wcontent {
+        min-width: 660px;
+        width : 700px;
+      }
+    </style>
+</head>
+<body>
+    <div class="modal" id="boardWrite">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="modal-top-close"><button type="button" class="modalClose modalX">X</button></div>
+              <div class="modal-title">게시글작성</div>
+            </div>
+            <form method="POST" action="/write"></form>
+            <div class="modal-body" id="modalBoard">
+                <div id="firstLine">
+                    <div id="wno">게시번호 <input type="text" id="wnoi" name="wno" class="inpel" /></div>
+                    <div id="wdate">작성일시 <input type="text" id="wdatei" name="wdate" class="inpel" /></div>
+                    <div id="whit">조회수 <input type="text" id="whiti" name="whit" class="inpel" /></div>
+                </div>
+                <div id="secondLine">
+                 제목 <input type="text" id="wtitle" name="wtitle" class="inpel" />
+                </div>
+                <div id="thirthLine">
+                작성자 <input type="text" id="wwriter" name="wwriter" class="inpel" /></div>
+                </div>
+                <div id="forthLine">
+                    <h5>내용</h5>
+                    <textarea id="wcontent" name="wcontent"></textarea>
+                </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn modalClose" data-bs-dismiss="modal" onclick="location.href='/'">Write</button>
+              <button type="reset" class="btn">Reset</button>
+              <button type="button" class="btn modalClose" data-bs-dismiss="modal">Close</button>
+            </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</body>
+</html>

@@ -3,5 +3,22 @@
     {
       "path": "."
     }
-  ]
+  ],
+  "settings": {
+    "sqltools.connections": [
+      {
+        "mysqlOptions": {
+          "authProtocol": "default",
+          "enableSsl": "Disabled"
+        },
+        "previewLimit": 50,
+        "server": "192.168.0.218",
+        "port": 3306,
+        "driver": "MariaDB",
+        "name": "test_db",
+        "database": "test_db",
+        "username": "cbs"
+      }
+    ]
+  }
 }

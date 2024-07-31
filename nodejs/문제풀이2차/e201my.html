@@ -4,12 +4,120 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="Stylesheet" href=".reset.css" />
-    <style>
-      body {
-        background-color: #ec8260;
-        padding-top: 8rem;
+  </head>
+  <style>
+    :root {
+      --myblue1: rgb(0, 255, 255);
+      --myblue2: rgb(100, 255, 255);
+      --myblue3: rgb(200, 255, 255);
+      --mygreen1: rgb(0, 255, 0);
+      --mygreen2: rgb(100, 255, 100);
+      --mygreen3: rgb(200, 255, 200);
+      --myred1: rgb(255, 0, 0);
+      --myred2: rgb(255, 100, 100);
+      --myred3: rgb(255, 200, 200);
+      --myyellow1: rgb(255, 255, 0);
+      --myyellow2: rgb(255, 255, 100);
+      --myyellow3: rgb(255, 255, 200);
+      --myorange1: rgb(255, 150, 0);
+      --myorange2: rgb(255, 175, 25);
+      --myorange3: rgb(255, 200, 50);
+    }
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+    .wrap {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    header {
+      height: fit-content;
+      /*background-color: var(--myblue3);*/
+      text-align: center;
+      color: magenta;
+      font-size: 1.3rem;
+      padding: 0;
+      margin: 0;
+    }
+    h1 {
+      padding: 0.5rem 0;
+      margin: 0;
+    }
+    nav {
+      height: fit-content;
+      /*background-color: var(--mygreen3);*/
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+    section {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      flex: 1;
+    }
+    aside {
+      width: 150px;
+      display: flex;
+      justify-content: center;
+      /*background-color: var(--myred3);*/
+    }
+    article {
+      width: 100%;
+    }
+    footer {
+      height: 70px;
+      /*background-color: var(--myorange3);*/
+      text-align: center;
+      
+    }
+    footer div {
+        font-size: 1rem;
+    }
+    nav ul li {
+      list-style: none;
+      display: inline-block;
+      padding: 0.2rem 0.4rem;
+      margin-right: 1rem;
+      font-weight: bold;
+      font-size: 1rem;
+      background-color: magenta;
+      border: none;
+      border-radius: 6px;
+      box-shadow: 5px 5px 5px;
+    }
+    ul li {
+        list-style: none;
+        display: inline-block;
+        padding: 0.2rem 0.4rem;
+    }
+    li a {
+        color: black;
+        text-decoration: none;
+    }
+    li a:link {
+        color: black;
+        text-decoration: none;
+    }
+    li a:visited {
+        color: black;
+        text-decoration: none;
+    }
+    li a:hover {
+        color: black;
+        text-decoration: none;
+    }
+    li a:active {
+        color: black;
+        text-decoration: none;
+    }
+    .psbody {
+        /*background-color: #ec8260;*/
+        padding-top: 5rem;
         display: flex;
+        height: 100%;
         justify-content: center;
       }
       .card {
@@ -72,16 +180,181 @@
         background-color: azure;
         transform: scale(1.15);
       }
-    </style>
-  </head>
+      .modal-footer>button {
+        background-color: #eeeeee;
+        width: fit-content;
+        border-radius: 10px;
+        align-items: center;
+      }
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1050;
+      }
+      .modal.show {
+        display: block;
+      }
+      .modal-dialog {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+      }
+      .modal-header, .modal-body, .modal-footer {
+        padding: 20px;
+      }
+      .modal-header {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .modal-title {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      .modal-top-close {
+        justify-self: right;
+        text-align: right;
+      }
+      .modal-footer {
+        border-top: 1px solid #dee2e6;
+      }
+      .modalX {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+      .modal-body {
+        padding: 20px;
+        text-align: start;
+      }
+      .modalth {
+        text-align: left;
+        background-color: #eeeeee;
+        color: black;
+      }
+      .modal-footer {
+        text-align: right;
+      }
+      form {
+        margin: 0;
+        padding: 0;
+      }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const mdOpBtn = document.querySelectorAll(".modalopbtn");
+        mdOpBtn.forEach((Btn) => {
+          Btn.addEventListener("click", (e) => {
+            const modalTarget = e.target.getAttribute("data-bs-target");
+            openModal(modalTarget);
+          });
+        });
+
+        function openModal(modalId) {
+          const opModal = document.querySelector(modalId);
+          if (opModal) {
+            opModal.classList.add("show");
+            opModal.style.display = "block";
+            document.body.classList.add("modal-open");
+          }
+        }
+
+        document
+          .querySelectorAll(".modal .modalClose, .modal")
+          .forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+              if (
+                e.target.classList.contains("modal") ||
+                e.target.classList.contains("modalClose")
+              ) {
+                closeModal(e.target.closest(".modal"));
+              }
+            });
+          });
+
+        function closeModal(modal) {
+          modal.classList.remove("show");
+          modal.style.display = "none";
+          document.body.classList.remove("modal-open");
+        }
+      });
+  </script>
   <body>
-    <div class="card">
-      <div class="banner">
-        <div class="profile"></div>
+    <!-- 로그인 모달 -->
+  <div class="modal" id="modallogin">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-top-close"><button type="button" class="modalClose modalX">X</button></div>
+          <div class="modal-title">로그인</div>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/login">
+            <table id="logintable">
+              <tr><th class="modalth">ID</th><td><input type="text" id="id" name="id" class="inpel" /></td></tr>
+              <tr><th class="modalth">PASSWORD</th><td><input type="password" id="passwd" name="passwd" class="inpel" /></td></tr>
+            </table>
+            <div class="modal-footer">
+              <button type="submit" class="btn" data-bs-dismiss="modal" onclick="location.href='/'">Login</button>
+              <button type="button" class="btn modalClose" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
       </div>
-      <h2 class="name">Choi BongSaeng</h2>
-      <div class="follow-btn"><button>follow</button></div>
-      <div class="desc">그렇쿤화 무서운 쿰을 쿠었쿠나 캄사</div>
+    </div>
+  </div>
+    <div class="wrap">
+      <header><h1>Never</h1></header>
+      <nav>
+        <ul>
+          <li><a href="/login">로그인</a></li>
+          <li><a href=#>홈</a></li>
+          <li><a href=#>게시판</a></li>
+          <li><a href=#>마이페이지</a></a></li>
+          <li><a href=#>About</a></li>
+        </ul>
+      </nav>
+      <section>
+        <aside><img src="img/aside.JPG" alt="광고대신" width="94%" /></aside>
+        <article>오늘은 더럽게 덥습니다.
+            <div class="psbody">
+                <div class="card">
+                  <div class="banner">
+                    <div class="profile"></div>
+                  </div>
+                  <h2 class="name">Choi BongSaeng</h2>
+                  <div class="follow-btn"><button>follow</button></div>
+                  <div class="desc">그렇쿤화 무서운 쿰을 쿠었쿠나 캄사</div>
+                </div>
+            </div>
+        </article>
+        <aside></aside>
+      </section>
+      <footer>
+        <div>
+            <ul>
+                <li><a href="">회사소개</a></li>
+                <li><a href="">인재채용</a></li>
+                <li><a href="">제휴제안</a></li>
+                <li><a href="">이용약관</a></li>
+                <li><a href="">개인정보처리방침</a></li>
+                <li><a href="">청소년보호정책</a></li>
+                <li><a href="">네이버 정책</a></li>
+                <li><a href="">고객센터</a></li>
+            </ul>
+        </div>
+        <div>안ⓒ NEVER Corp.</div>
+    </footer>
     </div>
   </body>
 </html>

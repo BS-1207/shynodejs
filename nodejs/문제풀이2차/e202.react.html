@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .board_wrap {
+        width: 80%;
+        margin: 50px auto;
+      }
+      .board_title {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .board_list {
+        width: 100%;
+        border-top: 1px solid #aaa;
+      }
+      .board_list div {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+      }
+      .board_list .header {
+        font-weight: bold;
+        background-color: skyblue;
+      }
+      .board_list .row {
+        background-color: #eee;
+        border-bottom: 1px solid #aaa;
+        text-align: center;
+      }
+      .board_list .row:nth-child(even) {
+        background-color: #e5e5e5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <h1>안녕하세요!</h1>
+      <script type="text/babel">
+        const users = [
+          {
+            id: 1,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 2,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 3,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 4,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 5,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 6,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 7,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 8,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+          {
+            id: 9,
+            title: "제목줄",
+            name: "john",
+            date: "2024-07-25",
+            count: 1,
+          },
+        ];
+
+        const ListItem = () => {
+          return (
+            <>
+              {users.map((v) => {
+                return (
+                  <div className="row">
+                    <div>{v.id}</div>
+                    <div>{v.title}</div>
+                    <div>{v.name}</div>
+                    <div>{v.date}</div>
+                    <div>{v.count}</div>
+                  </div>
+                );
+              })}
+            </>
+          );
+        };
+
+        const name = "작성한 아이";
+        const title = "이게 제목이라네";
+        function List() {
+          /*return (
+            <div>
+              <h1>안녕하세요. 리액트입니다.</h1>
+              <div>반가워요.</div>
+            </div>
+          );*/
+          return (
+            <div className="board_wrap">
+              <div className="board_title">
+                <h1>게시글 목록</h1>
+              </div>
+              <div className="board_list">
+                <div className="header">
+                  <div>번호</div>
+                  <div>제목</div>
+                  <div>작성자</div>
+                  <div>작성일</div>
+                  <div>조회수</div>
+                </div>
+                <ListItem />
+              </div>
+            </div>
+          );
+        }
+        //ReactDOM - 가상의 html페이지
+        ReactDOM.createRoot(document.getElementById("root")).render(<List />);
+      </script>
+    </div>
+  </body>
+</html>
