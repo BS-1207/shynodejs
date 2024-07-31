@@ -4,9 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      table {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
     <script>
       const url = "https://jsonplaceholder.typicode.com/posts";
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          let list = `<html><body><table id=table>`;
+          for (let i = 0; i < 6; i++) {
+            list += `<tr><td>${data[i].id}</td><td>${data[i].userId}</td><td>${data[i].title}</td></tr>`;
+          }
+          list += `</table></body></html>`;
+          document.write(list);
+        });
     </script>
+    <!--fetch(url)로 부터 response변수에 데이터를 받고 json형태로 가공하는 메소드를 사용하여  json 형태로 변환
+    변환된 json정보를 data로 받아서 DOM에 쓰는데 data[0] 배열에 키title의 값을 출력 -->
   </head>
   <body></body>
 </html>
