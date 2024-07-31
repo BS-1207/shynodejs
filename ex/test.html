@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      a {
+        color: black;
+        text-decoration: none;
+      }
+      a:visited {
+        color: #000000; /* 원하는 색상으로 변경 */
+        text-decoration: none; /* 밑줄 제거 */
+      }
+      a:hover {
+        color: #000000; /* 원하는 색상으로 변경 */
+        text-decoration: none; /* 밑줄 제거 */
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const check = document.querySelector("#test");
+        console.log(check);
+      });
+    </script>
+  </head>
+  <body>
+    <a href="http://www.naver.com" id="test">Go Naver</a><br />
+    <a href="http://google.co.kr" target="_blank">Go Google (new window)</a>
+  </body>
+</html>

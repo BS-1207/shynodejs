@@ -41,6 +41,7 @@ db.connect((error) => {
 });
 
 app.get("/", (req, res) => {
+<<<<<<< HEAD
   res.sendFile(`${__dirname}/index.html`);
 });
 app.post("/", (req, res) => {
@@ -49,10 +50,15 @@ app.post("/", (req, res) => {
     console.log(req.session.username);
     res.sendFile(`${__dirname}/index.html`);
     //res.sendFile(`${__dirname}/index.html`);
+=======
+  if (req.session.loggedIn) {
+    res.sendFile(`${__dirname}/index.html`);
+>>>>>>> 1a4757a8b9d9b5872a32bef5ae048c58c4576f31
   } else {
     res.sendFile(`${__dirname}/index.html`);
   }
 });
+<<<<<<< HEAD
 //<div class="profile background-image: url("${url}");">
 app.post("/getUsername", (req, res) => {
   if (req.session.loggedIn) {
@@ -128,12 +134,35 @@ app.post("/join", (req, res) => {
     `id: ${jid}, password : ${jpasswd}, name: ${jname}, nick: ${jnick}, birth: ${jbirth}, desc: ${jdesc}`
   );
   console.log("Data inserted successfully");
+=======
+
+app.post("/join", (req, res) => {
+  const table = "user";
+  const { user, passwd, name, nick, birth } = req.body;
+  console.log(user, passwd, name, nick, birth);
+  db.query(
+    "INSERT INTO ${user} (id, password, nick, name, birthday) VALUES (?,?,?,?,?)",
+    [user, passwd, nick, name, birth],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
+      console.log(
+        `id: ${user}, password : ${passwd}, name: ${name}, nick: ${nick}, birth: ${birth}`
+      );
+      console.log("Data inserted successfully");
+    }
+  ); // MySQL query here
+>>>>>>> 1a4757a8b9d9b5872a32bef5ae048c58c4576f31
 });
 
 app.post("/login", (req, res) => {
   const table = "user";
   const { id, passwd } = req.body; // get방식은 Query
   console.log(id, passwd);
+<<<<<<< HEAD
   const lquery = `select count(*) as c from ${table}
     where strcmp(id, '${id}') = 0 
     and strcmp(password, '${passwd}') = 0`;
@@ -188,14 +217,52 @@ app.get("/logout", (req, res) => {
       `<script>alert("로그인 상태가 아닙니다.");location.href='/';</script>`
     );
   }
+=======
+  db.query(
+    `select count(*) as c from ${table}
+    where strcmp(id, '${id}') = 0 
+    and strcmp(password, '${passwd}') = 0`,
+    (err, results) => {
+      console.log(results);
+      console.log(results[0].c);
+      if (results[0].c == 1) {
+        req.session.loggedIn = true;
+        req.session.username = id;
+        console.log("로그인에 성공하였습니다.");
+        //로그인 이후 처리하여 버튼 표시 및 게시판 리스트 클릭 가능하게 트리깅 필요함
+        res.redirect("/");
+      } else {
+        res.send(
+          `<h3>정상적인 로인이 필요합니다</h3><button onclick="location.href='/' ">로그인창으로</button>`
+        );
+      }
+    }
+  );
+});
+
+app.post("/logout", (req, res) => {
+  req.session.destroy((e) => {
+    if (e) console.error(e);
+    res.send(
+      `<script>alert('로그아웃이 완료되었습니다');window.location.href='/'</script>`
+    ); //script window.location.href BoM영역 컨트롤
+  });
+>>>>>>> 1a4757a8b9d9b5872a32bef5ae048c58c4576f31
 });
 
 app.post("/list", (req, res) => {
   const table = "board";
+<<<<<<< HEAD
   const query = `SELECT B.no, B.title, B.id, H.view_count, DATE_FORMAT(B.created_at,'%Y-%m-%d %T') AS created_at FROM ${table} B JOIN hit H ON B.no=H.no ORDER BY B.no DESC`;
   db.query(query, (err, result) => {
     let list = "";
     console.log("게시판 리스트 호출됨");
+=======
+  const que = `SELECT no, title, id, view_count, created_at FROM ${table}`;
+  db.query(que, (err, result) => {
+    let list = "";
+    console.log(result);
+>>>>>>> 1a4757a8b9d9b5872a32bef5ae048c58c4576f31
     result.forEach((v) => {
       list += `<tr><td>${v.no}</td><td>${v.title}</td><td>${v.id}</td>
       <td>${v.created_at}</td><td>${v.view_count}</td></tr>`;
@@ -205,6 +272,7 @@ app.post("/list", (req, res) => {
 });
 
 app.post("/write", (req, res) => {
+<<<<<<< HEAD
   const { wno, wdate, whit, wtitle, wwriter, wcontent } = req.body;
   console.log(wno, wdate, whit, wtitle, wwriter, wcontent);
   const table = "board";
@@ -288,6 +356,39 @@ app.post("/delete", (req, res) => {
     }
     const board = results[0];
     res.send(`<script>alert("게시글 삭제 성공");location.href='/'</script>`);
+=======
+  const { wno, wtitle, wwriter, wdate, whit, wcontent } = req.body;
+  console.log(wno, wtitle, wwriter, wdate, whit, wcontent);
+  db.query(
+    "INSERT INTO board (title, id, content) VALUES (?,?,?)",
+    [wtitle, wwriter, wcontent],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
+      console.log(
+        `title: ${wtitle}, writer : ${wwriter}, content: ${wcontent}`
+      );
+      console.log("Data inserted successfully");
+    }
+  ); // MySQL query here
+});
+
+app.get("/content", (req, res) => {
+  //const {no, title, writer, content} = req.query;
+  //?? 조회 및 삭제시 굳이 no 이회 다른 정보가 필요한가?
+  const table = "board";
+  const que = `SELECT * FROM ${table} WHERE ${no}`;
+  db.query(que, (err, result) => {
+    let list = "";
+    result.forEach((v) => {
+      list += `<tr><td>${v.no}</td><td>${v.title}</td><td>${v.writer}</td>
+      <td>${v.createat}</td><td>${v.view_count}</td></tr>`;
+    });
+    res.send(list);
+>>>>>>> 1a4757a8b9d9b5872a32bef5ae048c58c4576f31
   });
 });
 
