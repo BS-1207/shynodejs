@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>할 일 목록</h2>
+    <input type="test" />
+    <button>추가하기</button>
+    <div>
+      <button id="doneBtn">완료 버튼</button>
+      <button id="sdelBtn">선택목록 지우기</button>
+      <button id="ddelBtn">완료된 목록 지우기</button>
+      <button id="deleteAll">모두 지우기</button>
+    </div>
+    <div class="list"></div>
+    <script>
+      const input = document.querySelector("input");
+      const btn = document.querySelector("button");
+      const dBtn = document.getElementById("doneBtn");
+      const sdBtn = document.getElementById("sdelBtn");
+      const ddBtn = document.getElementById("ddelBtn");
+      const adBtn = document.getElementById("deleteAll");
+      const list = document.querySelector(".list");
+      let inputData;
+      input.addEventListener("keyup", (e) => {
+        inputData = e.currentTarget.value;
+      });
+
+      btn.addEventListener("click", () => {
+        if (inputData) {
+          const vdiv = document.createElement("div");
+          const vcheck = document.createElement("input");
+          const vspan = document.createElement("span");
+          const vbutton = document.createElement("button");
+          list.appendChild(vdiv).append(vcheck, vspan, vbutton);
+          vcheck.type = "checkbox";
+          vbutton.textContent = "삭제";
+          vspan.textContent = inputData;
+          input.value = inputData = null;
+          dBtn.addEventListener("click", (e) => {
+            const sdList = document.querySelectorAll(
+              'input[type="checkbox"]:checked'
+            );
+            if (sdList) {
+              console.log(sdList);
+              sdList.forEach((element) => {
+                element.disabled = true;
+              });
+            } else {
+              alert("완료할 대상이 선택되지 않았습니다.");
+            }
+          });
+          vbutton.addEventListener("click", (e) => {
+            if (e.target) list.removeChild(vdiv);
+            /*vbutton.parentElement.remove(vdiv);*/
+          });
+          sdBtn.addEventListener("click", () => {
+            const sdList = document.querySelectorAll(
+              'input[type="checkbox"]:checked'
+            );
+            if (sdList) {
+              console.log(sdList);
+              sdList.forEach((element) => {
+                element.parentElement.remove(vdiv);
+              });
+            } else {
+              alert("삭제할 대상이 선택되지 않았습니다.");
+            }
+          });
+          ddBtn.addEventListener("click", () => {
+            // checked와 disabled 속성을 동시에 가진 체크박스 요소들을 선택
+            const checkedAndDisabledElements = document.querySelectorAll(
+              'input[type="checkbox"]:checked:disabled'
+            );
+            // 체크된 요소들의 리스트 만들기
+            let sdList = [];
+            checkedAndDisabledElements.forEach((element) => {
+              element.parentElement.remove(vdiv);
+            });
+          });
+          adBtn.addEventListener("click", (e) => {
+            if (vdiv) list.removeChild(vdiv);
+            /*list.innerHTML = "";*/
+          });
+          vcheck.addEventListener("click", (e) => {
+            vdiv.style.color = e.target.checked ? "grey" : "black";
+            vdiv.style.textDecoration = e.target.checked
+              ? "line-through"
+              : "none";
+          });
+        } else {
+          alert("값을 입력해주세요");
+          console.log();
+        }
+      });
+    </script>
+  </body>
+</html>
