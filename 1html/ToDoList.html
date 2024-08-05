@@ -6,156 +6,160 @@
     <title>Document</title>
   </head>
   <style>
-    html {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    .all {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      height: 100%;
-      margin: 1rem;
-      padding: 0;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.15);
-    }
-    .sidemenu {
-      background-color: cadetblue;
-      width: 10rem;
-      height: 100%;
-      margin: 0;
-      padding: 2rem;
-      border: none;
-    }
-    .sidemenu > ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .sidemenu > ul > li {
-      margin-top: 2rem;
-      padding-left: 1rem;
-      font-size: 2rem;
-      font-weight: bolder;
-    }
-    .sidemenu > ul > li:hover {
-      color: white;
-    }
-    .wrap {
-      background-color: beige;
-      height: 100%;
-      padding: 2rem;
-      margin-top: 3rem;
-      border: none;
-      text-align: center;
-    }
-    .wrap > h1 {
-      text-shadow: 10px 10px 10px 10px rgba(125, 125, 125, 0.7);
-    }
-    .wrap > div:first-of-type {
-      display: flex;
-      width: fit-content;
-      font-size: 1.5rem;
-      margin: 2rem 1rem 1rem 3.5rem;
-      border: none;
-      border-radius: 10px;
-      padding: 0;
-      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
-    }
-    #input {
-      width: 21rem;
-      height: 24px;
-      padding: 0.7rem;
-      margin: 0 -10px 0 0;
-      border: none;
-      border-radius: 10px 0 0 10px;
-      background-color: rgba(5, 5, 5, 0.1);
-    }
-    #input:focus {
-      outline: none;
-      background-color: white;
-    }
-    #add {
-      padding: 0.7rem;
-      margin: 0 0 0 -10px;
-      border: none;
-      border-left: solid darkgrey;
-      border-radius: 0 10px 10px 0;
-      background-color: burlywood;
-    }
-    #add:hover {
-      background-color: darkorange;
-    }
-    .buttonArea {
-      margin-bottom: 1rem;
-    }
-    #list {
-      border: none;
-    }
-    #list > tr {
-      display: flex;
-      align-items: center;
-      width: 33rem;
-      height: 3rem;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
-      text-align: center;
-      margin-bottom: 1rem;
-      color: white;
-    }
-    #list > tr > td:first-of-type {
-      align-items: center;
-      width: 3rem;
-    }
-    #list > tr > td:nth-of-type(2) {
-      align-items: center;
-      width: 32rem;
-    }
-    #list > tr > td:nth-of-type(3) {
-      align-items: center;
-      width: 5rem;
-    }
-    #list > tr > td:nth-of-type(3) > button {
-      align-items: center;
-      padding: 0.4rem;
-    }
-    #list > tr:nth-child(2n-1) {
-      background-color: skyblue;
-    }
-    #list > tr:nth-child(2n) {
-      background-color: lightseagreen;
-    }
-    .list > div > input {
-      justify-self: flex-start;
-    }
-    button {
-      border: none;
-      border-radius: 10px;
-      background-color: cornflowerblue;
-      color: white;
-      padding: 0.7rem;
-      margin-left: 0.3rem;
-      font-size: 1rem;
-      font-weight: bolder;
-      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
-    }
-    button:hover {
-      background-color: darkblue;
-      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.45);
-    }
+        html {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        .all {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          height: 100%;
+          margin: 1rem;
+          padding: 0;
+          border: none;
+          border-radius: 10px;
+          box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.15);
+        }
+        .sidemenu {
+          background-color: cadetblue;
+          width: 10rem;
+          height: 100%;
+          margin: 0;
+          padding: 2rem;
+          border: none;
+        }
+        .sidemenu>ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        .sidemenu>ul>li {
+          margin-top: 2rem;
+          padding-left: 1rem;
+          font-size: 2rem;
+          font-weight: bolder;
+        }
+        .sidemenu>ul>li:hover {
+          color: white;
+        }
+        .wrap {
+          background-color: beige;
+          height: 100%;
+          padding: 2rem;
+          margin-top: 3rem;
+          border: none;
+          text-align: center;
+        }
+        .wrap>h1 {
+          text-shadow: 10px 10px 10px 10px rgba(125,125,125, 0.7);
+        }
+        .wrap>div:first-of-type {
+          display: flex;
+          width: fit-content;
+          font-size: 1.5rem;
+          margin: 2rem 1rem 1rem 3.5rem;
+          border: none;
+          border-radius: 10px;
+          padding: 0;
+          box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+        }
+        #input {
+          width: 21rem;
+          height: 24px;
+          padding: 0.7rem;
+          margin: 0 -10px 0 0;
+          border: none;
+          border-radius: 10px 0 0 10px;
+          background-color: rgba(5, 5, 5, 0.1);
+        }
+        #input:focus {
+          outline: none;
+          background-color: white;
+        }
+        #add {
+          padding: 0.7rem;
+          margin: 0 0 0 -10px;
+          border: none;
+          border-left: solid darkgrey;
+          border-radius: 0 10px 10px 0;
+          background-color: burlywood;
+        }
+        #add:hover {
+          background-color: darkorange;
+        }
+        .buttonArea {
+          margin-bottom: 1rem;
+        }
+        #list {
+          border: none;
+        }
+        #list>tr {
+          display: flex;
+          align-items: center;
+          width: 33rem;
+          height: 3rem;
+          border: none;
+          border-radius: 10px;
+          box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+          text-align: center;
+          margin-bottom: 1rem;
+          color: white;
+        }
+        #list > tr > td:first-of-type {
+          align-items: center;
+          width: 3rem;
+        }
+        #list > tr > td:nth-of-type(2) {
+          align-items: center;
+          width: 32rem;
+        }
+        #list > tr > td:nth-of-type(3) {
+          align-items: center;
+          width: 5rem;
+        }
+        #list > tr > td:nth-of-type(3) > button {
+          align-items: center;
+          padding: 0.4rem;
+        }
+        #list > tr:nth-child(2n-1) {
+          background-color: skyblue;
+        }
+        #list > tr:nth-child(2n) {
+          background-color: lightseagreen;
+        }
+        .list > div > input {
+          justify-self: flex-start;
+        }
+        button {
+          border: none;
+          border-radius: 10px;
+          background-color: cornflowerblue;
+          color: white;
+          padding: 0.7rem;
+          margin-left: 0.3rem;
+          font-size: 1rem;
+          font-weight: bolder;
+          box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+        }
+        button:hover {
+          background-color: darkblue;
+          box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.45);
+        }
+    <<<<<<< HEAD
+    =======
+
+    >>>>>>> 9a872b1f3aed78bd892ada77a0d68da0b35a7698
   </style>
   <body>
     <div class="all">
