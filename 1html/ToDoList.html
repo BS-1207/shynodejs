@@ -5,17 +5,182 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    html {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .all {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
+      margin: 1rem;
+      padding: 0;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.15);
+    }
+    .sidemenu {
+      background-color: cadetblue;
+      width: 10rem;
+      height: 100%;
+      margin: 0;
+      padding: 2rem;
+      border: none;
+    }
+    .sidemenu > ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .sidemenu > ul > li {
+      margin-top: 2rem;
+      padding-left: 1rem;
+      font-size: 2rem;
+      font-weight: bolder;
+    }
+    .sidemenu > ul > li:hover {
+      color: white;
+    }
+    .wrap {
+      background-color: beige;
+      height: 100%;
+      padding: 2rem;
+      margin-top: 3rem;
+      border: none;
+      text-align: center;
+    }
+    .wrap > h1 {
+      text-shadow: 10px 10px 10px 10px rgba(125, 125, 125, 0.7);
+    }
+    .wrap > div:first-of-type {
+      display: flex;
+      width: fit-content;
+      font-size: 1.5rem;
+      margin: 2rem 1rem 1rem 3.5rem;
+      border: none;
+      border-radius: 10px;
+      padding: 0;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+    }
+    #input {
+      width: 21rem;
+      height: 20px;
+      padding: 0.7rem;
+      margin: 0 -10px 0 0;
+      border: none;
+      border-radius: 10px 0 0 10px;
+    }
+    #input:focus {
+      outline: none;
+    }
+    #add {
+      padding: 0.7rem;
+      margin: 0 0 0 -10px;
+      border: none;
+      border-left: solid darkgrey;
+      border-radius: 0 10px 10px 0;
+      background-color: burlywood;
+    }
+    #add:hover {
+      background-color: darkorange;
+    }
+    .buttonArea {
+      margin-bottom: 1rem;
+    }
+    #list {
+      border: none;
+    }
+    #list > tr {
+      display: flex;
+      align-items: center;
+      width: 33rem;
+      height: 3rem;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    #list > tr > td:first-of-type {
+      align-items: center;
+      width: 3rem;
+    }
+    #list > tr > td:nth-of-type(2) {
+      align-items: center;
+      width: 32rem;
+    }
+    #list > tr > td:nth-of-type(3) {
+      align-items: center;
+      width: 5rem;
+    }
+    #list > tr > td:nth-of-type(3) > button {
+      align-items: center;
+      padding: 0.4rem;
+    }
+    #list > tr:nth-child(2n-1) {
+      background-color: skyblue;
+    }
+    #list > tr:nth-child(2n) {
+      background-color: lightseagreen;
+    }
+    .list > div > input {
+      justify-self: flex-start;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      background-color: cornflowerblue;
+      color: white;
+      padding: 0.7rem;
+      margin-left: 0.3rem;
+      font-size: 1rem;
+      font-weight: bolder;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+    }
+    button:hover {
+      background-color: darkblue;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.45);
+    }
+  </style>
   <body>
-    <h2>할 일 목록</h2>
-    <input type="test" />
-    <button>추가하기</button>
-    <div>
-      <button id="doneBtn">완료 버튼</button>
-      <button id="sdelBtn">선택목록 지우기</button>
-      <button id="ddelBtn">완료된 목록 지우기</button>
-      <button id="deleteAll">모두 지우기</button>
+    <div class="all">
+      <div class="sidemenu">
+        <ul>
+          <li>Login</li>
+          <li>Join</li>
+          <li>Logout</li>
+        </ul>
+      </div>
+      <div class="wrap">
+        <h1>To Do List</h1>
+        <div>
+          <input type="test" id="input" />
+          <button id="add">추가하기</button>
+        </div>
+        <div class="buttonArea">
+          <button id="doneBtn">완료 버튼</button>
+          <button id="sdelBtn">선택목록 지우기</button>
+          <button id="ddelBtn">완료된 목록 지우기</button>
+          <button id="deleteAll">모두 지우기</button>
+        </div>
+        <div class="list">
+          <table id="list"></table>
+        </div>
+      </div>
     </div>
-    <div class="list"></div>
     <script>
       const input = document.querySelector("input");
       const btn = document.querySelector("button");
@@ -23,7 +188,7 @@
       const sdBtn = document.getElementById("sdelBtn");
       const ddBtn = document.getElementById("ddelBtn");
       const adBtn = document.getElementById("deleteAll");
-      const list = document.querySelector(".list");
+      const list = document.querySelector("#list");
       let inputData;
       input.addEventListener("keyup", (e) => {
         inputData = e.currentTarget.value;
@@ -31,11 +196,20 @@
 
       btn.addEventListener("click", () => {
         if (inputData) {
-          const vdiv = document.createElement("div");
+          const vtrAdd = document.createElement("tr");
           const vcheck = document.createElement("input");
           const vspan = document.createElement("span");
           const vbutton = document.createElement("button");
-          list.appendChild(vdiv).append(vcheck, vspan, vbutton);
+
+          const tdCheck = document.createElement("td");
+          const tdSpan = document.createElement("td");
+          const tdButton = document.createElement("td");
+
+          tdCheck.appendChild(vcheck);
+          tdSpan.appendChild(vspan);
+          tdButton.appendChild(vbutton);
+
+          list.appendChild(vtrAdd).append(tdCheck, tdSpan, tdButton);
           vcheck.type = "checkbox";
           vbutton.textContent = "삭제";
           vspan.textContent = inputData;
@@ -48,23 +222,26 @@
               console.log(sdList);
               sdList.forEach((element) => {
                 element.disabled = true;
+                element.parentElement.parentElement.style.backgroundColor =
+                  "grey";
+                element.parentElement.parentElement.style.color = "white";
               });
             } else {
               alert("완료할 대상이 선택되지 않았습니다.");
             }
           });
           vbutton.addEventListener("click", (e) => {
-            if (e.target) list.removeChild(vdiv);
+            if (e.target) list.removeChild(vtrAdd);
             /*vbutton.parentElement.remove(vdiv);*/
           });
           sdBtn.addEventListener("click", () => {
             const sdList = document.querySelectorAll(
-              'input[type="checkbox"]:checked'
+              'input[type="checkbox"]:checked:not(:disabled)'
             );
             if (sdList) {
               console.log(sdList);
               sdList.forEach((element) => {
-                element.parentElement.remove(vdiv);
+                element.parentElement.parentElement.remove(vtrAdd);
               });
             } else {
               alert("삭제할 대상이 선택되지 않았습니다.");
@@ -78,16 +255,16 @@
             // 체크된 요소들의 리스트 만들기
             let sdList = [];
             checkedAndDisabledElements.forEach((element) => {
-              element.parentElement.remove(vdiv);
+              element.parentElement.parentElement.remove(vtrAdd);
             });
           });
           adBtn.addEventListener("click", (e) => {
-            if (vdiv) list.removeChild(vdiv);
+            if (vtrAdd) list.removeChild(vtrAdd);
             /*list.innerHTML = "";*/
           });
           vcheck.addEventListener("click", (e) => {
-            vdiv.style.color = e.target.checked ? "grey" : "black";
-            vdiv.style.textDecoration = e.target.checked
+            vtrAdd.style.color = e.target.checked ? "grey" : "white";
+            vtrAdd.style.textDecoration = e.target.checked
               ? "line-through"
               : "none";
           });
