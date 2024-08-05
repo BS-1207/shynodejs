@@ -3,18 +3,50 @@ import "./App.css";
 function App() {
   return (
     <>
-      <h1>처음 리액트를 시작합니다</h1>
-      <button onClick={notice}>처음 만드는 버튼</button>
-      <table>
-        <tr>
-          <th>번호</th>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일</th>
-          <th>조회수</th>
-        </tr>
-        {rows(data)}
-      </table>
+      <div id="all" class="f">
+        <h1>충격과 공포의 게시판</h1>
+        <div id="boardListouter">
+          <div id="boardName">
+            <h2>자유롭지 않은 억압 게시판</h2>
+          </div>
+          <div id="boardListdiv">
+            <table class="table">
+              <thead class="tableHead">
+                <tr>
+                  <th scope="col" id="num">
+                    No.
+                  </th>
+                  <th scope="col" id="title">
+                    제목
+                  </th>
+                  <th scope="col" id="writer">
+                    작성자
+                  </th>
+                  <th scope="col" id="wdate">
+                    작성일
+                  </th>
+                  <th scope="col" id="hit">
+                    조회수
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="boardList" class="tableBody">
+                {rows(data)}
+              </tbody>
+            </table>
+            <div id="wrBtnArea">
+              <button
+                class="modalopbtn logouthide"
+                type="button"
+                id="write"
+                data-bs-target="#boardWrite"
+                disabled>
+                글작성
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
@@ -50,7 +82,6 @@ const data = [
   // 추가 행 데이터를 여기에 추가할 수 있습니다.
 ];
 
-const notice = () => alert("안녕하십니까?");
 const rows = (check) => {
   return check.map((item) => (
     <tr key={item.id}>
@@ -62,4 +93,5 @@ const rows = (check) => {
     </tr>
   ));
 };
+
 export default App;

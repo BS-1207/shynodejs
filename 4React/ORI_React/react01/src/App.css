@@ -1,4 +1,4 @@
-.App {
+/*.App {
   text-align: center;
 }
 
@@ -26,29 +26,66 @@
 
 .App-link {
   color: #61dafb;
+}*/
+body {
+  margin: 0;
+  padding: 0;
 }
-
+#boardListouter {
+  background-color: #508c9b;
+  padding: 1rem 1rem;
+  margin: 1rem auto;
+  width: fit-content;
+  border-radius: 10px;
+}
+h1 {
+  color: white;
+  text-align: center;
+}
 table {
-  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
+  width: fit-content;
   border-collapse: collapse;
+  border-spacing: 0px;
+  border-radius: 12px;
+  overflow: hidden;
 }
 th {
-  background-color: #61dafb;
-  border: 1px solid black;
-  border-collapse: collapse;
+  padding: 0.5rem 1rem;
+  background-color: black;
+  color: white;
 }
 td {
-  border-collapse: collapse;
+  padding: 0.5rem 1rem;
+  background-color: #eeeeee;
+  overflow: hidden;
 }
-tr:nth-of-type(2n) {
-  background-color: beige;
+button {
+  background-color: #eeeeee;
+  width: fit-content;
+  border-radius: 10px;
+  align-items: center;
+}
+#boardName {
+  text-align: center;
+}
+#boardListdiv {
+  display: flex;
+  flex-direction: column;
+}
+#wrBtnArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 1rem;
 }
 
-@keyframes App-logo-spin {
+/*@keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+}*/
