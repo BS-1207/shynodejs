@@ -19,6 +19,7 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      background-image: url("https://media.istockphoto.com/id/2164464539/ko/%EC%82%AC%EC%A7%84/low-angle-view-of-stars-in-sky.jpg?s=2048x2048&w=is&k=20&c=3gou1gFfYvt_GVvp-iBbl4wlWtKkBMP_dCo1c_b6GRU=");
     }
     .all {
       display: flex;
@@ -163,14 +164,22 @@
       background-color: darkblue;
       box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.45);
     }
+    #dalert {
+      width: fit-content;
+      margin: 1rem auto;
+      padding: 1rem;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 10px;
+    }
   </style>
   <body>
     <div class="all">
       <div class="sidemenu">
         <ul>
-          <li>Login</li>
-          <li>Join</li>
-          <li>Logout</li>
+          <li id="login">Login</li>
+          <li id="join">Join</li>
         </ul>
       </div>
       <div class="wrap">
@@ -179,108 +188,37 @@
           <input type="test" id="input" />
           <button id="add">추가하기</button>
         </div>
+        <hr />
         <div class="buttonArea">
           <button id="doneBtn">완료 버튼</button>
           <button id="sdelBtn">선택목록 지우기</button>
           <button id="ddelBtn">완료된 목록 지우기</button>
           <button id="deleteAll">모두 지우기</button>
         </div>
+        <hr />
         <div class="list">
+          <div id="dalert">
+            로그인하여야 이용가능합니다.<br />
+            아이디가 없는 경우 JOIN으로 가입 후 로그인해주세요.
+          </div>
           <table id="list"></table>
         </div>
       </div>
     </div>
     <script>
-      const input = document.querySelector("input");
-      const btn = document.querySelector("button");
-      const dBtn = document.getElementById("doneBtn");
-      const sdBtn = document.getElementById("sdelBtn");
-      const ddBtn = document.getElementById("ddelBtn");
-      const adBtn = document.getElementById("deleteAll");
-      const list = document.querySelector("#list");
-      let inputData;
-      input.addEventListener("keyup", (e) => {
-        inputData = e.currentTarget.value;
-      });
-
-      btn.addEventListener("click", () => {
-        if (inputData) {
-          const vtrAdd = document.createElement("tr");
-          const vcheck = document.createElement("input");
-          const vspan = document.createElement("span");
-          const vbutton = document.createElement("button");
-
-          const tdCheck = document.createElement("td");
-          const tdSpan = document.createElement("td");
-          const tdButton = document.createElement("td");
-
-          tdCheck.appendChild(vcheck);
-          tdSpan.appendChild(vspan);
-          tdButton.appendChild(vbutton);
-
-          list.appendChild(vtrAdd).append(tdCheck, tdSpan, tdButton);
-          vcheck.type = "checkbox";
-          vbutton.textContent = "삭제";
-          vspan.textContent = inputData;
-          input.value = inputData = null;
-          dBtn.addEventListener("click", (e) => {
-            const sdList = document.querySelectorAll(
-              'input[type="checkbox"]:checked'
-            );
-            if (sdList) {
-              console.log(sdList);
-              sdList.forEach((element) => {
-                element.disabled = true;
-                element.parentElement.parentElement.style.backgroundColor =
-                  "grey";
-                element.parentElement.parentElement.style.color = "white";
-              });
-            } else {
-              alert("완료할 대상이 선택되지 않았습니다.");
-            }
-          });
-          vbutton.addEventListener("click", (e) => {
-            if (e.target) list.removeChild(vtrAdd);
-            /*vbutton.parentElement.remove(vdiv);*/
-          });
-          sdBtn.addEventListener("click", () => {
-            const sdList = document.querySelectorAll(
-              'input[type="checkbox"]:checked:not(:disabled)'
-            );
-            if (sdList) {
-              console.log(sdList);
-              sdList.forEach((element) => {
-                element.parentElement.parentElement.remove(vtrAdd);
-              });
-            } else {
-              alert("삭제할 대상이 선택되지 않았습니다.");
-            }
-          });
-          ddBtn.addEventListener("click", () => {
-            // checked와 disabled 속성을 동시에 가진 체크박스 요소들을 선택
-            const checkedAndDisabledElements = document.querySelectorAll(
-              'input[type="checkbox"]:checked:disabled'
-            );
-            // 체크된 요소들의 리스트 만들기
-            let sdList = [];
-            checkedAndDisabledElements.forEach((element) => {
-              element.parentElement.parentElement.remove(vtrAdd);
-            });
-          });
-          adBtn.addEventListener("click", (e) => {
-            if (vtrAdd) list.removeChild(vtrAdd);
-            /*list.innerHTML = "";*/
-          });
-          vcheck.addEventListener("click", (e) => {
-            vtrAdd.style.color = e.target.checked ? "grey" : "white";
-            vtrAdd.style.textDecoration = e.target.checked
-              ? "line-through"
-              : "none";
-          });
-        } else {
-          alert("값을 입력해주세요");
-          console.log();
+      document.addEventListener("DOMContentLoaded", () => {
+        const buttons = document.getElementsByTagName("button");
+        for (let i = 0; i < buttons.length; i++) {
+          buttons[i].disabled = true;
         }
+        const login = document.getElementById("login");
+        const join = document.getElementById("join");
+        login.addEventListener("click", (e) => {
+          window.location.href = "/login"; // 현재 창에서 /login 페이지로 이동합니다
+        });
+        join.addEventListener("click", (e) => {
+          window.location.href = "/join"; // 현재 창에서 /join 페이지로 이동합니다
+        });
       });
     </script>
   </body>

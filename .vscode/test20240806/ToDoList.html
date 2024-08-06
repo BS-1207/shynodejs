@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    html {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .all {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 100%;
+      margin: 1rem;
+      padding: 0;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.15);
+    }
+    .sidemenu {
+      background-color: cadetblue;
+      width: 10rem;
+      height: 100%;
+      margin: 3rem 0 0 0;
+      padding: 2rem;
+      border: none;
+      border-top-left-radius: 1.5rem;
+      border-bottom-left-radius: 1.5rem;
+    }
+    .sidemenu > ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .sidemenu > ul > li {
+      margin-top: 2rem;
+      padding-left: 1rem;
+      font-size: 2rem;
+      font-weight: bolder;
+    }
+    .sidemenu > ul > li:hover {
+      color: white;
+    }
+    .wrap {
+      background-color: beige;
+      height: 100%;
+      padding: 2rem;
+      margin-top: 3rem;
+      border: none;
+      border-top-right-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
+      text-align: center;
+    }
+    .wrap > h1 {
+      text-shadow: 10px 10px 10px 10px rgba(125, 125, 125, 0.7);
+    }
+    .wrap > h1:hover {
+      transform: translateY(20%) scale(1.3);
+    }
+
+    .wrap > div:first-of-type {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      font-size: 1.5rem;
+      margin: 1rem 1rem 1rem 3.5rem;
+      border: none;
+      border-radius: 10px;
+      padding: 0;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+    }
+    form {
+      display: flex;
+    }
+    label {
+      color: white;
+      padding: 0.7rem;
+      background-color: rgba(5, 5, 5, 0.5);
+      line-height: 2.5rem; /* 텍스트가 가운데 오도록 */
+    }
+    #inlabel {
+      width: 5rem;
+      font-weight: bolder;
+      border-radius: 10px 0 0 10px;
+    }
+    #input {
+      width: 21rem;
+      height: 3.9rem; /* height 설정 추가 */
+      padding: 0.7rem;
+      margin: 0 0 0 0;
+      border: none;
+      background-color: rgba(5, 5, 5, 0.1);
+      box-sizing: border-box; /* padding을 포함한 height 조정 */
+    }
+
+    #input:focus {
+      outline: none;
+      background-color: white;
+    }
+
+    #dalabel {
+      width: 7rem;
+      line-height: 2.5rem; /* 텍스트가 가운데 오도록 */
+    }
+
+    #dday {
+      padding: 0.7rem;
+      height: 3.9rem; /* height 설정 추가 */
+      border: none;
+      background-color: rgba(5, 5, 5, 0.1);
+      box-sizing: border-box; /* padding을 포함한 height 조정 */
+    }
+
+    #dday:focus {
+      outline: none;
+      background-color: white;
+    }
+
+    #add {
+      height: 3.9rem; /* height 설정 추가 */
+      padding: 0.7rem;
+      margin: 0 0 0 0px;
+      border: none;
+      border-radius: 0 10px 10px 0;
+      background-color: burlywood;
+    }
+
+    #add:hover {
+      background-color: darkorange;
+    }
+    .buttonArea {
+      margin-bottom: 1rem;
+    }
+    .list {
+      display: flex;
+      justify-content: center;
+    }
+    #list {
+      border: none;
+    }
+    #list > tr {
+      display: flex;
+      align-items: center;
+      width: 40rem;
+      height: 3rem;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      margin-bottom: 1rem;
+      color: white;
+    }
+    #list > tr > td:first-of-type {
+      align-items: center;
+      width: 3rem;
+    }
+    #list > tr > td:nth-of-type(2) {
+      align-items: center;
+      width: 3rem;
+    }
+    #list > tr > td:nth-of-type(3) {
+      align-items: center;
+      width: 32rem;
+    }
+    #list > tr > td:nth-of-type(4) {
+      align-items: center;
+      width: 7rem;
+    }
+    #list > tr > td:nth-of-type(5) {
+      align-items: center;
+      width: 5rem;
+    }
+    #list > tr > td:nth-of-type(6) > button {
+      align-items: center;
+      padding: 0.4rem;
+    }
+    #list > tr:nth-child(2n-1) {
+      background-color: skyblue;
+    }
+    #list > tr:nth-child(2n) {
+      background-color: lightseagreen;
+    }
+    .list > div > input {
+      justify-self: flex-start;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      background-color: cornflowerblue;
+      color: white;
+      padding: 0.7rem;
+      margin-left: 0.3rem;
+      font-size: 1rem;
+      font-weight: bolder;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);
+    }
+    button:hover {
+      background-color: darkblue;
+      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.45);
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fetchTDL = fetch("/list", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.text(); // 서버에서 HTML 형식의 데이터를 받습니다.
+      });
+
+      Promise.all([fetchTDL])
+        .then((results) => {
+          const fetchTDL = results[0];
+          document.getElementById("list").innerHTML = fetchTDL;
+
+          // 버튼을 선택하고 이벤트 리스너를 추가하는 코드
+          const buttons = document.querySelectorAll("button");
+          buttons.forEach((button) => {
+            if (button.textContent === "삭제") {
+              button.addEventListener("click", (e) => {
+                const no = e.target.getAttribute("data-no");
+                console.log(`삭제할 항목 번호: ${no}`);
+
+                // 삭제 요청을 서버로 보냄
+                fetch(`/delete`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                  },
+                  body: `no=${encodeURIComponent(no)}`, // no 값을 body에 포함
+                })
+                  .then((response) => {
+                    if (!response.ok) {
+                      throw new Error("Network response was not ok");
+                    }
+                    return response.text();
+                  })
+                  .then((data) => {
+                    // 삭제 후 리스트를 다시 로드하는 fetch 요청
+                    return fetch("/list", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                      },
+                    });
+                  })
+                  .then((response) => {
+                    if (!response.ok) {
+                      throw new Error("Network response was not ok");
+                    }
+                    return response.text();
+                  })
+                  .then((newList) => {
+                    document.getElementById("list").innerHTML = newList;
+                  })
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+  </script>
+  <body>
+    <div class="all">
+      <div class="sidemenu">
+        <ul>
+          <!--<li>Login</li>
+          <li>Join</li>-->
+          <li>Logout</li>
+        </ul>
+      </div>
+      <div class="wrap">
+        <h1>To Do List</h1>
+        <br /><br />
+        <div>
+          <form method="post" action="/insert">
+            <label for="input" id="inlabel"> 할 일 </label>
+            <input type="text" id="input" name="todo" required />
+            <label for="dday" id="dalabel">완료일시</label>
+            <input type="date" id="dday" name="dday" />
+            <button type="submit" id="add" onclick="location.href='/list'">
+              추가하기
+            </button>
+          </form>
+        </div>
+        <div class="buttonArea">
+          <button type="button" id="doneBtn">완료 버튼</button>
+          <button type="button" id="sdelBtn">선택목록 지우기</button>
+          <button type="button" id="ddelBtn">완료된 목록 지우기</button>
+          <button type="button" id="deleteAll">모두 지우기</button>
+        </div>
+        <hr />
+        <div class="list">
+          <table>
+            <tbody id="list"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

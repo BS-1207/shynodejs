@@ -19,6 +19,7 @@
       height: 100%;
       margin: 0;
       padding: 0;
+      background-image: url("https://media.istockphoto.com/id/2164464539/ko/%EC%82%AC%EC%A7%84/low-angle-view-of-stars-in-sky.jpg?s=2048x2048&w=is&k=20&c=3gou1gFfYvt_GVvp-iBbl4wlWtKkBMP_dCo1c_b6GRU=");
     }
     .all {
       display: flex;
@@ -168,9 +169,7 @@
     <div class="all">
       <div class="sidemenu">
         <ul>
-          <li>Login</li>
-          <li>Join</li>
-          <li>Logout</li>
+          <li id="logout">Logout</li>
         </ul>
       </div>
       <div class="wrap">
@@ -179,12 +178,14 @@
           <input type="test" id="input" />
           <button id="add">추가하기</button>
         </div>
+        <hr />
         <div class="buttonArea">
           <button id="doneBtn">완료 버튼</button>
           <button id="sdelBtn">선택목록 지우기</button>
           <button id="ddelBtn">완료된 목록 지우기</button>
           <button id="deleteAll">모두 지우기</button>
         </div>
+        <hr />
         <div class="list">
           <table id="list"></table>
         </div>
@@ -198,11 +199,14 @@
       const ddBtn = document.getElementById("ddelBtn");
       const adBtn = document.getElementById("deleteAll");
       const list = document.querySelector("#list");
+      const logout = document.getElementById("logout");
       let inputData;
       input.addEventListener("keyup", (e) => {
         inputData = e.currentTarget.value;
       });
-
+      logout.addEventListener("click", (e) => {
+        window.location.href = "/logout"; // 현재 창에서 /logout 페이지로 이동합니다
+      });
       btn.addEventListener("click", () => {
         if (inputData) {
           const vtrAdd = document.createElement("tr");
