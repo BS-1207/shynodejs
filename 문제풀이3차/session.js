@@ -42,10 +42,18 @@ app.post("/login", (req, res) => {
       res.redirect("/");
     } else {
       res.send(`
-        <h3>정상적인 로그인이 필요합니다.</h3>
-        <h4> 회원이 아니신 분은 회원가입을 해주세요.</h4>
-        <button onclick="location.href='/'">뒤로가기</button>
-        <button onclick="location.href='/join'">가입하기</button>
+        <body style="width: 100%; height: 100%; margin: 0; padding: 0; background-image: url('https://media.istockphoto.com/id/2164464539/ko/%EC%82%AC%EC%A7%84/low-angle-view-of-stars-in-sky.jpg?s=2048x2048&w=is&k=20&c=3gou1gFfYvt_GVvp-iBbl4wlWtKkBMP_dCo1c_b6GRU=');">
+          <div style="width: fit-content;background-color: beige; border: none; border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; align-items: center; margin: 4rem auto;">
+            <div style="width: fit-content; background-color: red;  border: none; border-radius: 10px; padding: 0.1rem 1rem; margin-bottom: 1rem; color: white">
+              <h3>정상적인 로그인이 필요합니다.</h3>
+              <h4> 회원이 아니신 분은 회원가입을 해주세요.</h4>
+            </div>
+            <div style="width: fit-content; border:none;">
+              <button onclick="location.href='/login'" style="border:none; border-radius: 10px; background-color: cornflowerblue; color:white; padding: 0.7rem; margin-left: 0.3rem; font-size: 1rem; font-weight: bolder; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);">뒤로가기</button>
+              <button onclick="location.href='/join'" style="border:none; border-radius: 10px; background-color: burlywood; color:white; padding: 0.7rem; margin-left: 0.3rem; font-size: 1rem; font-weight: bolder; box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.15);">가입하기</button>
+            </div>
+          </div>
+        </body>
         `);
     }
   } else {
