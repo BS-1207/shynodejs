@@ -23,8 +23,6 @@ function Join() {
       ...prevData,
       [name]: value,
     }));
-
-    // 암호화 작업 추가
     // 암호화 작업 추가
     const data = { ...formData, [name]: value }; // 업데이트된 formData
     const encrypted = Cryptojs.AES.encrypt(
