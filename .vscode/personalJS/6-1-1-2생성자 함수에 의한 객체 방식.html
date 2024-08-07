@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function Animal(type, name, sound) {
+        this.type = type;
+        this.name = name;
+        this.sound = sound;
+        this.say = function () {
+          console.log(this.sound);
+        };
+      }
+      const rabbit = new Animal("토끼", "빙키", "깡총");
+      const frog = new Animal("개구리", "개리", "개굴");
+      rabbit.say();
+      frog.say();
+    </script>
+  </head>
+  <body></body>
+</html>

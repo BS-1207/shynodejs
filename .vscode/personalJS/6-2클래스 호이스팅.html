@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    //클래스 선언문응로 정의한 클래스는 소스코드 평가 과정에서
+    //실행하기 이전에 먼저 평가되어 함수 객체를 생성하는데
+    //이것이 바로 호이스팅
+    //쉽게 말해 모든 선언문을 먼저 찾아내서 실행하고 난뒤
+    //이후에 모든 선언문을 제외한 소스코드부터 순차적 실행
+    //클래스 선언문이 최상단으로 끌어올려져 동작하는 것을 의미
+    //**주의 클래스 정의하기 이전엔 참조 불가
+    //클래스 선언문 이전에 일시적 사각지대(TDZ)에 빠져
+    //호이스팅이 발생하지 않는 것처럼 동작
+    //호이스팅은 선언이 먼저 메모리 공간에 저장되었다는 것을 의미
+    //호이스팅 발생하는 이유는 모든 선언문은 런타임 이전에 먼저 실행되기 때문
+    console.log(Player);
+
+    class Player {}
+    //Uncaught ReferenceError: Cannot access 'Player' before initialization
+  </script>
+  <body></body>
+</html>

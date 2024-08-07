@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      var Player = (function () {
+        function Player(name) {
+          this.name = name;
+        }
+        //프로토타입 메서드
+        Player.prototype.sayWinner = function () {
+          console.log("Ladies and gentlemen, Champion is " + this.name);
+        };
+        //정적 메서드
+        Player.sayWinner = function () {
+          console.log("Champion!");
+        };
+
+        return Player;
+      })();
+
+      Player.sayWinner();
+    </script>
+  </head>
+  <body></body>
+</html>

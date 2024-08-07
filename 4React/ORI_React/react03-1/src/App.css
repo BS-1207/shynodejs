@@ -1,0 +1,8 @@
+.jCtn {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-width: 500px;
+  width: fit-content;
+  padding: 1rem;
+}

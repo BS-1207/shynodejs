@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!--6-1-3-1클래스문법-->
+    <!--new 연산자가 없으면 클래스에서 오류발생, 생성자 함수에서는 일반 함수로서 호출-->
+    <!--상속을 지원하는 extend와 super 키워드를 클래스에서 지원, 생성자 함수에서는 미지원-->
+    <!--클래스 내 모든 코드에는 strict mode(엄격모드)가 지정-->
+    <!--반면 생성자 함수에는 strict mode가 지정 되어 있지 않음-->
+    <!--6-1-3-2클래스사용-->
+    <!--ex) class Player {}-->
+    <!--일반 적으로 위와 같이 클래스 명을 선언-->
+    <script>
+      class Player {}
+      console.log(typeof Player); //type이 function으로 표시
+      const Player2 = class {}; //익명 클래스 표현식
+      const Player3 = class myClass {}; //가명 클래스 표현식
+    </script>
+  </head>
+  <body></body>
+</html>
