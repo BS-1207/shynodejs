@@ -5,28 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .inputdiv {
+        display: flex;
+        flex-direction: column;
+      }
+      .inBtnArea {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+      .btnArea {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+      }
+      .btnArea > button {
+        margin-left: 0.5rem;
+      }
+      .tdiv {
+        display: flex;
+        justify-content: center;
+      }
       table {
         border: 1px solid black;
         border-collapse: collapse;
       }
       th,
       td {
+        padding: 0.5rem;
         border: 1px solid black;
         border-collapse: collapse;
+        border-radius: 10px;
       }
     </style>
   </head>
   <body>
     <h1>로컬스토리지 활용</h1>
-    이름: <input type="text" class="indata in1" /><br />
-    나이: <input type="text" class="indata in2" /><br />
-    주소: <input type="text" class="indata in3" /><br />
-    <button id="data-save">저장하기</button>
+    <div class="inputdiv">
+      이름: <input type="text" class="indata in1" /><br />
+      나이: <input type="text" class="indata in2" /><br />
+      주소: <input type="text" class="indata in3" /><br />
+      <div class="inBtnArea">
+        <button id="data-save">저장하기</button>
+      </div>
+    </div>
     <hr />
-    <button id="data-load">불러오기</button>
-    <button id="data-del">삭제하기</button>
+    <hr />
+    <div class="btnArea">
+      <button id="data-load">불러오기</button>
+      <button id="data-del">삭제하기</button>
+    </div>
     <h3></h3>
-    <div>
+    <div class="tdiv">
       <table>
         <thead>
           <th>ID</th>
@@ -50,7 +85,6 @@
         localStorage.getItem("currentId") != null
           ? localStorage.getItem("currentId")
           : 1;
-      let tList = "";
       const upData = JSON.parse(localStorage.getItem("myData")) ?? [];
       btnSave.addEventListener("click", () => {
         const ori = {
@@ -65,11 +99,20 @@
       });
       btnLoad.addEventListener("click", () => {
         const data = JSON.parse(localStorage.getItem("myData"));
-        h3.innerHTML = data ?? "저장소에 데이터가 없습니다.";
+        tableList.innerHTML = " ";
+        let tList = "";
+        //h3.innerHTML = data ?? "저장소에 데이터가 없습니다.";
         for (let row of data) {
           tList += `<tr><td>${row.id}</td><td>${row.name}</td><td>${row.age}</td><td>${row.address}</td></tr>`;
         }
         tableList.innerHTML = tList ?? "저장소에 데이터가 없습니다.";
+        /*이 구문은 JavaScript의 null 병합 연산자 (??)를 사용하여 tList가 null 또는 undefined일 경우 "저장소에 데이터가 없습니다."라는 문자열을 tableList 요소의 innerHTML에 할당하는 코드입니다.
+        구체적으로:
+        - tList가 null 또는 undefined가 아니면 tList의 값을 tableList.innerHTML에 할당합니다.
+        - tList가 null 또는 undefined이면 "저장소에 데이터가 없습니다."라는 문자열을 tableList.innerHTML에 할당합니다.
+        이렇게 하면 tList가 유효한 데이터인지 확인하고, 그렇지 않을 경우 사용자에게 적절한 메시지를 표시할 수 있습니다.
+        도움이 되었길 바랍니다! 다른 질문이 있으면 언제든지 말씀해 주세요. 😊
+        */
       });
       btnDel.addEventListener("click", () => {
         localStorage.removeItem("myData");
