@@ -23,16 +23,18 @@ function Join() {
       ...prevData,
       [name]: value,
     }));
-    // 암호화 작업 추가
     const data = { ...formData, [name]: value }; // 업데이트된 formData
+    console.log(data);
+    // 암호화 작업
     const encrypted = Cryptojs.AES.encrypt(
       JSON.stringify(data),
       secretkey
-    ).toString();
+    ).toString(); //이후 객체 형태를 받아 각 키 마다 다시 암호화 된 값을 encrypted로 갱신함
     setEncrypt((prevEncrypt) => ({
       ...prevEncrypt,
       [name]: encrypted,
     }));
+    console.log(encrypt);
   };
   return (
     <>

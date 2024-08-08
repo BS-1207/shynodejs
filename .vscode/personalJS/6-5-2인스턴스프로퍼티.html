@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //인스턴스 프로퍼티란
+      //클래스가 만들어 낼 인스턴스(객체)의 프로퍼티
+      class Student {
+        constructor(id, name, topics) {
+          this.id = id; //값을 받아 정의
+          this.name = name; //값을 받아 정의
+          this.topic = topics; //값을 받아 정의
+          this.subject = "javascript study"; //생성 당시에 정의
+        }
+      }
+
+      let sungjae = new Student(1, "성재", [
+        "조건문",
+        "클래스",
+        "구조분해할당",
+      ]);
+      console.log(sungjae);
+      console.table(sungjae);
+    </script>
+  </head>
+  <body></body>
+</html>

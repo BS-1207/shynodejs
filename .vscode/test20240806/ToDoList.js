@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+const { Client } = require("pg");
 const logger = require("morgan");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -9,6 +9,14 @@ let list = "";
 
 app.use(logger());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const db = new Client({
+  user: "cbs",
+  host: "192.168.0.218",
+  database: "test_db",
+  password: "Notorious82!",
+  port: 5432,
+});
 
 /* body-parser는 Express.js에서 사용되는 미들웨어 중 하나로, 요청 본문을 해석(parse)하는 역할
  *	bodyParser.urlencoded(): URL-encoded 데이터 해석.
@@ -24,14 +32,6 @@ app.use(
     saveUninitialized: true, // 세션에 대한 옵션들
   })
 );
-
-const db = mysql.createConnection({
-  host: "192.168.0.218",
-  user: "cbs",
-  port: 3306,
-  password: "Notorious82!",
-  database: "test_db",
-});
 
 db.connect((error) => {
   if (error) {
@@ -133,61 +133,103 @@ app.get("/logout", (req, res) => {
 });
 
 app.post("/list", (req, res) => {
-  const table = "todo";
-  const query = `SELECT no, done, content, DATE_FORMAT(dday,'%Y-%m-%d') AS dday FROM ${table}`;
-  db.query(query, (err, result) => {
-    let list = "";
-    console.log("To Do List 호출됨");
-    result.forEach((v) => {
-      list += `<tr><td>${
-        v.done == 0
-          ? '<input type="checkbox">'
-          : '<input type="checkbox" disabled>'
-      }</td><td>${v.no}</td><td>${v.content}</td><td>${
-        v.dday
-      }</td><td><button type="button" data-no="${
-        v.no
-      }">삭제</button></td></tr>`;
+  if (req.session.loggedIn) {
+    console.log("이걸로 호출됨");
+    console.log(req.session.username);
+    const table = "todo";
+    const query = `SELECT no, toto, TO_CHAR(dday, 'YYYY-MM-DD') AS dday, checkb, done FROM ${table} WHERE id=${req.session.username}`;
+    db.query(query, (err, result) => {
+      let list = "";
+      console.log("To Do List 호출됨");
+      result.forEach((v) => {
+        list += `<tr><td>${
+          v.done == true
+            ? '<input type="checkbox" checked disabled>'
+            : v.checkb == false
+            ? '<input type="checkbox">'
+            : '<input type="checkbox" checked>'
+        }</td><td>${v.no}</td><td>${v.todo}</td><td>${
+          v.dday
+        }</td><td><button type="button" data-no="${
+          v.no
+        }">삭제</button></td></tr>`;
+      });
+      res.send(list);
     });
-    res.send(list);
-  });
+  } else {
+    res.sendFile(`${__dirname}/ToDoList.html`);
+  }
 });
 
 app.post("/insert", (req, res) => {
-  const { todo, dday } = req.body;
-  console.log(req.body);
-  console.log(todo, dday);
-  const table = "todo";
-  const query = `INSERT INTO ${table} (content, dday) VALUES (?,?)`;
-  db.query(query, [todo, dday], (err, result) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
-    console.log(`todo: ${todo}, writer : ${dday}`);
-    console.log("Data inserted successfully");
-  }); // MySQL query here
+  if (req.session.loggedIn) {
+    const { todo, dday } = req.body;
+    console.log(req.body);
+    console.log(todo, dday);
+    const table = "todo";
+    const query = `INSERT INTO ${table} (id, todo, dday) VALUES (?,?)`;
+    db.query(query, [req.session.username, todo, dday], (err, result) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      res.send(`<script>alert("데이터 입력 성공");location.href='/'</script>`);
+      console.log(
+        `id: ${req.session.username} todo: ${todo}, writer : ${dday}`
+      );
+      console.log("Data inserted successfully");
+    }); // MySQL query here
+  } else {
+    res.sendFile(`${__dirname}/ToDoList.html`);
+  }
 });
 
-//개별 삭제 로직
+//삭제 로직 - 특정 값을 플래그로 삭제 분기를 주고 싶음 삭제 기능 메소드화
 app.post("/delete", (req, res) => {
-  const table = "todo";
-  const no = req.body.no;
-  console.log(no);
-  const dquery = `DELETE FROM ${table} WHERE no=${no}`;
-  db.query(dquery, (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("게시판 정보를 가져오는 중 오류가 발생했습니다.");
-      return;
-    }
-    if (results.length === 0) {
-      res.status(404).send("게시판 정보를 찾을 수 없습니다.");
-      return;
-    }
-    res.send(`<script>alert("게시글 삭제 성공");location.href='/'</script>`);
-  });
+  if (req.session.loggedIn) {
+    const table = "todo";
+    const no = req.body.no;
+    console.log(no);
+    const dquery = `DELETE FROM ${table} WHERE id=${req.session.username} AND no=${no}`;
+    db.query(dquery, (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("게시판 정보를 가져오는 중 오류가 발생했습니다.");
+        return;
+      }
+      if (results.length === 0) {
+        res.status(404).send("게시판 정보를 찾을 수 없습니다.");
+        return;
+      }
+      res.send(`<script>alert("게시글 삭제 성공");location.href='/'</script>`);
+    });
+  } else {
+    res.sendFile(`${__dirname}/ToDoList.html`);
+  }
+});
+
+app.post("/done", (req, res) => {
+  if (req.session.loggedIn) {
+    const table = "todo";
+    const no = req.body.no;
+    console.log(no);
+    //갯수에 따른 반복 필요
+    const dquery = `UPDATE ${table} SET checkb=true, done=true WHERE id=${req.session.username} AND no=${no}`;
+    db.query(dquery, (err, results) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("게시판 정보를 가져오는 중 오류가 발생했습니다.");
+        return;
+      }
+      if (results.length === 0) {
+        res.status(404).send("게시판 정보를 찾을 수 없습니다.");
+        return;
+      }
+      res.send(`<script>alert("게시글 삭제 성공");location.href='/'</script>`);
+    });
+  } else {
+    res.sendFile(`${__dirname}/ToDoList.html`);
+  }
 });
 
 app.listen(port, () => {

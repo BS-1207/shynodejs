@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      class Fruit {
+        constructor(name) {
+          this.name = name;
+        }
+        sayYum() {
+          console.log(`${this.name} is Yummy`);
+        }
+      }
+
+      const fruits = new Fruit("cherry");
+      fruits.sayYum(); //결과 cherry is Yummy
+    </script>
+  </head>
+  <body></body>
+</html>

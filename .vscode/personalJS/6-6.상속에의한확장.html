@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //클래스 확장은
+      // 상속을 이용해서 클래스 기능을 확대, 호가장
+      // 6-6-1-1. 이전까지의 class 상속
+      class NormalClass {
+        constructor(arg1, arg2) {
+          this.normalArg1 = arg1;
+          this.normalArg2 = arg2;
+        }
+        normalMethod() {
+          console.log("노말 메소드 예시 입니다.");
+        }
+      }
+      const normal = new NormalClass(10, 20);
+      console.dir(normal);
+    </script>
+  </head>
+  <body></body>
+</html>

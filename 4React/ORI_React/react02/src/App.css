@@ -1,3 +1,9 @@
+div {
+  margin-bottom: 1rem;
+}
+strong {
+  color: red;
+}
 .App {
   text-align: center;
 }

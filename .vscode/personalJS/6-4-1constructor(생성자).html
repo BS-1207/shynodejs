@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      class Fruit {
+        constructor(name) {
+          this.name = name;
+        }
+      }
+      const fruits = new Fruit("Cherry");
+
+      console.log(typeof Fruit); // class의 자료형은 결과 function
+      console.dir(Fruit); // 결과 [class Fruit]
+      console.table(Fruit); //결과 클래스 소스 구조가 나옴
+      //console.dir(Fruit);를 실행하면
+      // 콘솔에 Fruit 객체의 속성이 트리 구조로 표시되어 각 속성을 쉽게 탐색할 수 있습니다.
+      // 이는 특히 DOM 객체를 검사할 때 유용합니다
+      console.table(fruits); //표형식으로 색인 name 값 Cherry 밑에 dir 값 동시 표시
+      console.dir(fruits);
+      console.log(fruits);
+      // 클래스 내의 constructor는 하나만 존재할 수 있다.
+      // constructor는 생략이 가능하지만 프로퍼티가 추가되어 초기화된 인스턴스를 생성하려면
+      // constructor에 매개변수를 선언하고 초깃값을 전달해야 인스턴스 생성시 프로퍼티가 추가됨
+      // 인스턴스 생성과 동시에 프로퍼티 추가를 통해 인스턴스 초기화 하고 싶다면
+      // constructor는 필수
+    </script>
+  </head>
+  <body></body>
+</html>

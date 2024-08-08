@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function Fruit(name) {
+        this.name = name;
+      }
+
+      Fruit.prototype.sayYum = function () {
+        console.log(`${this.name} is Yummy`);
+      };
+      const fruits = new Fruit("cherry");
+      fruits.sayYum(); //결과 값 cherry is Yummy
+      //생성자 함수는 프로토타입의 메서드를 생성하려면 명시적으로 프로토타입 메서드를 추가해야 한다.
+      //생성자 함수와는 다르게 클래스에 아무것도 추가하지 않는 메서드는
+      //기본적으로 프로토타입 메서드가 된다.
+      //클래스의 prototype 프로퍼티에 메서드를 추가하지 않아도
+      // 자동적으로 프로토타입 메서드가 된다.
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      //private 필드 정의
+      //접근 제한자 존재
+      class Student2 {
+        subject = "javascript study"; //생성 당시에 정의
+        #id; //값은 받아와서 할당하기위해 선언만,
+        // 이대로 값을 받아오지 않으면 undefined
+        constructor(id, name, topics) {
+          this.#id = id; //값을 받아 정의
+          this.name = name; //값을 받아 정의
+          this.topic = topics; //값을 받아 정의
+        }
+      }
+      let sungjae2 = new Student2(1, "성재", [
+        "조건문",
+        "클래스",
+        "구조분해할당",
+      ]);
+      console.log(sungjae2.id); //결과 undefined
+      //이처럼 감추고 싶은 프로퍼티를 정의하고자 하면, #
+      //constructor 내부에서만 #으로 정의하면 에러
+      //미리 class내에 #으로 정의해야한다.
+      //#을 이용해 정보를 감출 수 있으나, getter, setter를 이용하면
+      //정보 조회, 수정이 가능
+      class Student3 {
+        subject = "javascript study"; //생성 당시에 정의
+        #id; //값은 받아와서 할당하기위해 선언만,
+        // 이대로 값을 받아오지 않으면 undefined
+        constructor(id, name, topics) {
+          this.#id = id; //값을 받아 정의
+          this.name = name; //값을 받아 정의
+          this.topic = topics; //값을 받아 정의
+        }
+        get id() {
+          return this.#id;
+        }
+        set id(val) {
+          this.#id = val;
+        }
+      }
+      let sungjae3 = new Student3(1, "성재", [
+        "조건문",
+        "클래스",
+        "구조분해할당",
+      ]);
+      console.log("--------------------------");
+      //getter함수 추가한 후
+      console.log(sungjae3.id); //1
+      sungjae3.id = 10101; //setter함수 추가로 수정이 가능
+      console.log(sungjae3.id); //10101
+    </script>
+  </head>
+  <body></body>
+</html>
