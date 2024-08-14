@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        margin: 0;
+        padding: 1rem;
+        text-align: center;
+        background-color: darkcyan;
+        color: white;
+      }
+      footer {
+        margin: 0;
+        padding: 1rem;
+        text-align: center;
+        background-color: darkcyan;
+        color: white;
+      }
+      nav {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        padding: 0.5rem 0;
+        background-color: skyblue;
+      }
+      ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        color: white;
+        margin: 0 2rem 0 1rem;
+      }
+      section {
+        background-color: lightskyblue;
+        margin: 0;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+      }
+      table {
+        justify-self: center;
+        width: 700px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      tr {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th {
+        min-width: fit-content;
+        width: fit-content;
+        padding: 0.3rem 1rem;
+        text-align: center;
+      }
+      td {
+        min-width: fit-content;
+        width: calc(fit-content + 1rem);
+        text-align: initial;
+      }
+      tr:nth-child(7) > td {
+        text-align: center;
+      }
+      h3 {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>(과정평가형 정보처리산업기사) 지역구의원투표 프로그램 ver 2020-05</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><h3>후보조회</h3></li>
+        <li><h3>투표하기</h3></li>
+        <li><h3>투표건수조회</h3></li>
+        <li><h3>후보자등수</h3></li>
+        <li><h3>홈으로</h3></li>
+      </ul>
+    </nav>
+    <section>
+      <h1>투표하기</h1>
+      <table>
+        <form name="frm" method="POST" action="vote">
+          <tr>
+            <th><label for="jno">주민번호</label></th>
+            <td>
+              <input type="text" name="jno" id="jno" maxlength="15" /> 예 :
+              8906153154726
+            </td>
+          </tr>
+          <tr>
+            <th><label for="name">성명</label></th>
+            <td><input type="text" name="name" id="name" /></td>
+          </tr>
+          <tr>
+            <th><label for="hoobo">투표번호</label></th>
+            <td>
+              <select name="hoobo" id="hoobo">
+                <option></option>
+                <option value="kim">[1]김후보</option>
+                <option value="lee">[2]이후보</option>
+                <option value="park">[3]박후보</option>
+                <option value="cho">[4]조후보</option>
+                <option value="choi">[5]최후보</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th><label for="votewhen">투표시간</label></th>
+            <td><input type="text" name="votewhen" id="votewhen" /></td>
+          </tr>
+          <tr>
+            <th><label for="votewhere">투표장소</label></th>
+            <td><input type="text" name="votewhere" id="votewhere" /></td>
+          </tr>
+          <tr>
+            <th><label for="check">유권자확인</label></th>
+            <td>
+              <input type="radio" name="check" id="check" value="1" />확인<input
+                type="radio"
+                name="check"
+                id="check2"
+                value="2" />미확인
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <input
+                type="submit"
+                value="투표하기"
+                onclick="return inputCheck()" />
+              <input type="reset" value="다시하기" />
+            </td>
+          </tr>
+        </form>
+      </table>
+    </section>
+    <footer>
+      HRDKOREA Copyrightⓒ2015 All rights reserved. Human Resources Development
+      Service of Korea
+    </footer>
+    <script>
+      function inputCheck() {
+        if (document.frm.jno.value.trim().length == 0) {
+          alert("주민번호가 입력되지 않았습니다!");
+          document.frm.jno.focus();
+          return false;
+        }
+        if (document.frm.name.value.trim().length == 0) {
+          alert("성명이 입력되지 않았습니다!");
+          document.frm.name.focus();
+          return false;
+        }
+        if (document.frm.hoobo.value.trim().length == 0) {
+          alert("후보번호가 선택되지 않았습니다!");
+          document.frm.hoobo.focus();
+          return false;
+        }
+        if (document.frm.votewhen.value.trim().length == 0) {
+          alert("투표시간이 입력되지 않았습니다!");
+          document.frm.votewhen.focus();
+          return false;
+        }
+        if (document.frm.votewhere.value.trim().length == 0) {
+          alert("투표장소가 입력되지 않았습니다!");
+          document.frm.votewhere.focus();
+          return false;
+        }
+        if (!document.frm.check.value) {
+          alert("유권자확인 선택되지 않았습니다!");
+          document.frm.check.focus();
+          return false;
+        }
+        alert("투표하기 정보가 정상적으로 등록 되었습니다.!");
+        return true;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border: 1px solid black;
+        border-collapse: initial;
+      }
+      tr {
+        border: 1px solid black;
+        border-collapse: initial;
+      }
+      td,
+      th {
+        padding: 0;
+        text-align: center;
+        border: 1px solid black;
+        border-collapse: initial;
+        vertical-align: middle;
+      }
+      input[type="text"] {
+        border: none;
+        margin: 0;
+        width: max-content;
+        height: 1.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>홈쇼핑 회원 등록</h1>
+    <form method="POST" action="Regist" name="frm">
+      <table>
+        <tr>
+          <th><label for="custno">회원번호(자동발생)</label></th>
+          <td><input type="text" id="custno" name="custno" /></td>
+        </tr>
+        <tr>
+          <th><label for="custname">회원성명</label></th>
+          <td><input type="text" id="custname" name="custname" /></td>
+        </tr>
+        <tr>
+          <th><label for="custphone">회원전화</label></th>
+          <td><input type="text" id="custphone" name="custphon" /></td>
+        </tr>
+        <tr>
+          <th><label for="custaddress">회원주소</label></th>
+          <td><input type="text" id="custaddress" name="custaddress" /></td>
+        </tr>
+        <tr>
+          <th><label for="joindate">가입일자</label></th>
+          <td><input type="text" id="joindate" name="joindate" /></td>
+        </tr>
+        <tr>
+          <th><label for="grade">고객등급(A:VIP,B:일반,C:직원)</label></th>
+          <td><input type="text" id="grade" name="grade" /></td>
+        </tr>
+        <tr>
+          <th><label for="zipcode">도시코드</label></th>
+          <td><input type="text" id="zipcode" name="zipcode" /></td>
+        </tr>
+        <tr>
+          <th colspan="2">
+            <input type="submit" value="등록" onclick="return inputCheck()" />
+            <input
+              type="button"
+              value="조회"
+              onclick="document.location.href='memberList.jsp'" />
+          </th>
+        </tr>
+      </table>
+    </form>
+    <script>
+      function inputCheck() {
+        if (document.frm.custname.value.length == 0) {
+          alert("회원 성명을 입력하세요");
+          document.frm.custname.focus();
+          return false;
+        }
+        if (document.frm.custphone.value.length == 0) {
+          alert("회원 전화을 입력하세요");
+          document.frm.custphone.focus();
+          return false;
+        }
+        if (document.frm.custaddress.value.length == 0) {
+          alert("회원 주소을 입력하세요");
+          document.frm.custaddress.focus();
+          return false;
+        }
+        if (document.frm.joindate.value.length == 0) {
+          alert("가입일자를 입력하세요");
+          document.frm.joindate.focus();
+          return false;
+        }
+        if (document.frm.grade.value.length == 0) {
+          alert("고객등급을 입력하세요");
+          document.frm.grade.focus();
+          return false;
+        }
+        if (document.frm.zipcode.value.length == 0) {
+          alert("도시코드을 입력하세요");
+          document.frm.zipcode.focus();
+          return false;
+        }
+        alert("회원 등록이 완료되었습니다.");
+        return true;
+      }
+    </script>
+  </body>
+</html>

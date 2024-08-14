@@ -1,0 +1,58 @@
+.ex06-div {
+  display: flex;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  border: none;
+  border-radius: 1rem;
+  background-color: blue;
+  margin: 0.5rem 0.5rem;
+}
+.ex06-div ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ex06-div ul li:first-child {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.5rem;
+  background-color: chartreuse;
+  color: lightgrey;
+  font-weight: bolder;
+  width: 8rem;
+  height: 5rem;
+  overflow: hidden;
+}
+.triangle {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.equilateral-triangle {
+  margin: 1rem;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 86.6px solid red; /* 50 * sqrt(3) / 2 */
+}
+.right-triangle {
+  margin: 1rem;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-left: 50px solid green;
+}
+.rotated-triangle {
+  margin: 1rem;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 86.6px solid blue;
+  transform: rotate(180deg);
+}
