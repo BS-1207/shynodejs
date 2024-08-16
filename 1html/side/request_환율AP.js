@@ -28,7 +28,7 @@ request(url, (e, res, body) => {
 //const url = process.env.API;
 
 app.get("/", (req, res) => {
-  const drate = parseFloat(dollor.deal_bas_r);
+  const drate = parseFloat(dollor.deal_bas_r.replace(/,/g, ""));
   const hd = drate * 100;
   console.log(hd, typeof hd);
   res.send(`<!DOCTYPE html>
