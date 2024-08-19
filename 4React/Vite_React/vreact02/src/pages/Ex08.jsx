@@ -25,7 +25,7 @@ const FetchData = () => {
   const Loading = () => (
     <img
       src="/src/assets/spiner.gif"
-      alt=""
+      alt="로딩중..."
       style={{ width: "100", height: "100" }}
     />
   );
