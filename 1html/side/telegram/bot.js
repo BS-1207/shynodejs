@@ -139,12 +139,6 @@ bot.onText(/\/(기록리스트)/, (msg, match) => {
   bot.sendMessage(chatId, resp);
 });
 
-/*bot.onText(/(사진)/, (msg, match) => {
-  const chatId = msg.chat.id;
-  console.log(match.input);
-  const resp = photoArry[photoArry.length - 1].id;
-  bot.sendPhoto(chatId, resp);
-});*/
 bot.onText(/(사진)/, (msg, match) => {
   const chatId = msg.chat.id;
   console.log(match.input);
