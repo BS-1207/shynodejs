@@ -133,11 +133,7 @@
             <th><label for="check1">유권자확인</label></th>
             <td>
               <input type="radio" name="check" id="check1" value="1" />확인
-              <input
-                type="radio"
-                name="check"
-                id="check2"
-                value="2" />미확인
+              <input type="radio" name="check" id="check2" value="2" />미확인
             </td>
           </tr>
           <tr>
@@ -158,13 +154,31 @@
     </footer>
     <script>
       function inputCheck() {
-        if (document.frm.jno.value.trim().length == 0) {
+        const jnoPattern = /^\d{6}[1-4]\d{6}$/;
+        const namePattern = /^[가-힣]+$/;
+        const voteTimePattern = /^\d{4}$/;
+
+        const jno = document.frm.jno.value.trim();
+        const name = document.frm.name.value.trim();
+        const voteTime = document.frm.votewhen.value.trim();
+
+        if (!jno) {
           alert("주민번호가 입력되지 않았습니다!");
           document.frm.jno.focus();
           return false;
         }
-        if (document.frm.name.value.trim().length == 0) {
+        if (!jnoPattern.test(jno)) {
+          alert("주민번호 형식이 올바르지 않습니다. 예: 8906153154726");
+          document.frm.jno.focus();
+          return false;
+        }
+        if (!name) {
           alert("성명이 입력되지 않았습니다!");
+          document.frm.name.focus();
+          return false;
+        }
+        if (!namePattern.test(name)) {
+          alert("성명은 한글만 입력 가능합니다!");
           document.frm.name.focus();
           return false;
         }
@@ -173,12 +187,17 @@
           document.frm.hoobo.focus();
           return false;
         }
-        if (document.frm.votewhen.value.trim().length == 0) {
+        if (!voteTime) {
           alert("투표시간이 입력되지 않았습니다!");
           document.frm.votewhen.focus();
           return false;
         }
-        if (document.frm.votewhere.value.trim().length == 0) {
+        if (!voteTimePattern.test(voteTime)) {
+          alert("투표시간은 4자리 숫자만 입력 가능합니다!");
+          document.frm.votewhen.focus();
+          return false;
+        }
+        if (!document.frm.votewhere.value.trim()) {
           alert("투표장소가 입력되지 않았습니다!");
           document.frm.votewhere.focus();
           return false;

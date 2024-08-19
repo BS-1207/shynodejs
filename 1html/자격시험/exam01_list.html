@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+
+<body>
+    <h1>회원목록조회/수정</h1>
+    <table border="1">
+        <tr>
+            <th>회원번호</th>
+            <th>회원성명</th>
+            <th>전화번호</th>
+            <th>주소</th>
+            <th>가입일자</th>
+            <th>고객등급</th>
+            <th>거주지역</th>
+        </tr>
+        <% while(rs.next()){ String grade=rs.getString("grade"); switch(grade){ case "A" : grade="VIP" ; break; case "B"
+            : grade="일반" ; break; case "C" : grade="직원" ; break; } %>
+            <tr>
+                <td><a href="modify.jsp?custno=<%=rs.getInt(" custno") %>"><%=rs.getInt("custno") %></a></td>
+                <td>
+                    <%=rs.getString("custname") %>
+                </td>
+                <td>
+                    <%=rs.getString("phone") %>
+                </td>
+                <td>
+                    <%=rs.getString("address") %>
+                </td>
+                <td>
+                    <%=rs.getDate("joindate") %>
+                </td>
+                <td>
+                    <%=grade %>
+                </td>
+                <td>
+                    <%=rs.getString("city") %>
+                </td>
+            </tr>
+            <% } %>
+    </table>
+</body>
+
+</html>

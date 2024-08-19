@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시험대비</title>
+</head>
+
+<body>
+    <h1>홈쇼핑 회원등록</h1>
+    <form name="frm" action="Resist" method="POST">
+        <table border="1">
+            <!-- tr>(th+td>input)*8 -->
+            <tr>
+                <th>회원번호(자동발생)</th>
+                <td><input type="text" name="custno"></td>
+            </tr>
+            <tr>
+                <th>회원성명</th>
+                <td><input type="text" name="custname"></td>
+            </tr>
+            <tr>
+                <th>회원전화</th>
+                <td><input type="text" name="phone"></td>
+            </tr>
+            <tr>
+                <th>회원주소</th>
+                <td><input type="text" name="address"></td>
+            </tr>
+            <tr>
+                <th>가입일자</th>
+                <td><input type="text" name="joindate"></td>
+            </tr>
+            <tr>
+                <th>고객등급<sub>(A:VIP,B:일반,C:직원)</sub></th>
+                <td><input type="text" name="grade"></td>
+            </tr>
+            <tr>
+                <th>도시코드</th>
+                <td><input type="text" name="city"></td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <input type="submit" value="등록" onclick="return inputCheck()">
+                    <input type="button" value="조회" onclick="document.location.href='memberList.jsp'">
+                </th>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function inputCheck() {
+            if (document.frm.custname.value.length == 0) {
+                alert("회원성명을 입력하세요.");
+                document.frm.custname.focus()
+                return false;
+            }
+            if (document.frm.phone.value.length == 0) {
+                alert("회원전화을 입력하세요.");
+                document.frm.phone.focus()
+                return false;
+            }
+            if (document.frm.address.value.length == 0) {
+                alert("회원주소를 입력하세요.");
+                document.frm.address.focus()
+                return false;
+            }
+            if (document.frm.joindate.value.length == 0) {
+                alert("가입일자를 입력하세요.");
+                document.frm.joindate.focus()
+                return false;
+            }
+            if (document.frm.grade.value.length == 0) {
+                alert("고객등급을 입력하세요.");
+                document.frm.grade.focus()
+                return false;
+            }
+            if (document.frm.city.value.length == 0) {
+                alert("도시코드를 입력하세요.");
+                document.frm.city.focus()
+                return false;
+            }
+            alert('회원등록이 완료되었습니다')
+            return ture
+        }
+    </script>
+</body>
+
+</html>
