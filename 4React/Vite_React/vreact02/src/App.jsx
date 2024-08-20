@@ -3,8 +3,8 @@ import "./App.css";
 import Css from "./pages/Ex06.jsx";
 import Eff from "./pages/Ex07.jsx";
 import FetchData from "./pages/Ex08.jsx";
-import Radio from "./pages/Ex09.jsx";
-import Arrays from "./pages/Ex10.jsx";
+import UseM from "./pages/Ex09.jsx";
+import Table from "./pages/Ex10.jsx";
 import Home from "./pages/Home.jsx";
 
 function App() {
@@ -18,8 +18,8 @@ function App() {
         <Route path="/Ex06" element={<Css />} />
         <Route path="/Ex07" element={<Eff />} />
         <Route path="/Ex08" element={<FetchData />} />
-        <Route path="/Ex09" element={<Radio />} />
-        <Route path="/Ex10" element={<Arrays />} />
+        <Route path="/Ex09" element={<UseM />} />
+        <Route path="/Ex10" element={<Table />} />
       </Routes>
     </>
   );

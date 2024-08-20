@@ -1,0 +1,24 @@
+div {
+  margin: 2rem auto;
+}
+table {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+tr,
+th,
+td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  padding: 1rem;
+}
+tr:nth-child(2n) {
+  background-color: lightgrey;
+}
+td:nth-child(2n) {
+  text-align: right;
+}
+.tableDiv {
+  display: flex;
+  justify-content: center;
+}

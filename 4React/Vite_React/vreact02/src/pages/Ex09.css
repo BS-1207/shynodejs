@@ -1,0 +1,14 @@
+p {
+  margin: 0;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0.5rem;
+}
+button {
+  background-color: lightgray;
+  margin: 0 0.5rem;
+}

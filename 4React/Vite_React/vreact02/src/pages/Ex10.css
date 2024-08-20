@@ -1,0 +1,46 @@
+div {
+  margin: 2rem auto;
+}
+table {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+tr,
+th,
+td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  padding: 1rem;
+}
+th {
+  background-color: firebrick;
+}
+tr:nth-child(2n) {
+  background-color: #353535;
+}
+#total {
+  background-color: cadetblue;
+}
+td:nth-child(2n) {
+  text-align: right;
+}
+td:last-child {
+  width: 10rem;
+}
+.tableDiv {
+  display: flex;
+  justify-content: center;
+}
+input {
+  margin: 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  width: 3rem;
+  text-align: right;
+}
+/*input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}*/
