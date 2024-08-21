@@ -1,0 +1,16 @@
+.picDiv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+}
+.picDivEach {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.input {
+  width: 13rem;
+  background-color: white;
+}

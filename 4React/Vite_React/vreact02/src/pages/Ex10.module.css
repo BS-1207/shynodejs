@@ -12,13 +12,35 @@ td {
   border-collapse: collapse;
   padding: 1rem;
 }
+th {
+  background-color: firebrick;
+}
 tr:nth-child(2n) {
-  background-color: lightgrey;
+  background-color: #353535;
 }
 td:nth-child(2n) {
   text-align: right;
+}
+td:last-child {
+  width: 10rem;
+}
+.total {
+  background-color: cadetblue;
 }
 .tableDiv {
   display: flex;
   justify-content: center;
 }
+input {
+  margin: 0;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  width: 3rem;
+  text-align: right;
+}
+/*input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}*/

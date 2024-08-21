@@ -58,3 +58,12 @@ a:visited {
   color: white;
   text-decoration: none;
 }
+div {
+  margin: 1rem 0.5rem;
+}
+input {
+  margin: 1rem 0.5rem;
+}
+button {
+  margin: 1rem 0.5rem;
+}

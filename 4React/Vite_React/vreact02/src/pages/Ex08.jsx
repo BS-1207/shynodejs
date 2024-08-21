@@ -24,11 +24,18 @@ const FetchData = () => {
   //   }
   const Loading = () => (
     <img
+      src={`spiner.gif`}
+      alt=""
+      style={{ width: "100px", heigth: "100px" }}
+    />
+  ); // 퍼블릭에 파일 위치시
+  /*const Loading = () => (
+    <img
       src="/src/assets/spiner.gif"
       alt="로딩중..."
       style={{ width: "100", height: "100" }}
     />
-  );
+  );*/ //npm run dev로 확인시
   return (
     <>
       <h1>8. 데이터 가져오기(Fetch)</h1>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Ex10.Css";
+import ex10Css from "./Ex10.module.css";
 import data from "./Ex10data.js";
 const Table = () => {
   const [ea, setEa] = useState(Array(data.length).fill(0));
@@ -28,7 +28,7 @@ const Table = () => {
     <>
       <h1>10. 데이터 임포트 테이블화</h1>
       <div>{JSON.stringify(data)}</div>
-      <div className="tableDiv">
+      <div className={ex10Css.tableDiv}>
         <table>
           <thead>
             <tr>
@@ -65,11 +65,11 @@ const Table = () => {
             })}
           </tbody>
           <tfoot>
-            <td colSpan={5}>
+            <td colSpan={5} className={ex10Css.total}>
               총&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               합
             </td>
-            <td id="total">{total}</td>
+            <td className={ex10Css.total}>{total}</td>
           </tfoot>
         </table>
       </div>
