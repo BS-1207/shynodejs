@@ -16,11 +16,10 @@ const Table = () => {
   };
   /* ea 변경시 때 마다 계산 */
   useEffect(() => {
-    const sum = ea.reduce((sum, quantity, index) => {
+    const sum = ea.reduce((sum, ea, index) => {
       return (
         sum +
-        (quantity * data[index].price +
-          (quantity > 0 ? data[index].delivery_price : 0))
+        (ea * data[index].price + (ea > 0 ? data[index].delivery_price : 0))
       );
     }, 0);
     setTotal(sum);
