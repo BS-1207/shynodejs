@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. 메모리 관리1(dispose)</title>
+    <!--하나만 대상으로 정리-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script>
+      const lg = console.log;
+      lg(tf.memory());
+      const a = tf.tensor2d([1, 2, 3, 4], [2, 2]);
+      lg(tf.memory());
+      const b = tf.tensor2d([
+        [7, 7],
+        [88, 88],
+      ]);
+      lg(tf.memory());
+      a.dispose(); // 사용하고 있던 메모리 비움
+      lg(tf.memory());
+    </script>
+  </head>
+  <body></body>
+</html>

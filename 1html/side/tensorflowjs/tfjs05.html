@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5.순차적모델</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script>
+      //레이어를 쌓는 법
+      const model = tf.sequential();
+      model.add(tf.layers.dense({ inputShape: [784], units: 16 })); //dense 밀집, 밀도 //activation : 함수형성을 위한 변형
+      model.add(tf.layers.dense({ units: 20 }));
+      model.add(tf.layers.dense({ units: 4 }));
+      model.summary();
+    </script>
+  </head>
+
+  <body></body>
+</html>

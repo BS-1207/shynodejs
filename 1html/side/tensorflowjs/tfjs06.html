@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script>
+      const model = tf.sequential(); // 1. 순차적 API 모델
+      model.add(tf.layers.dense({ inputShape: [2], units: 1 })); // 2. 레이어 생성 및 추가 units 출구
+      model.compile({ loss: "meanSquaredError", optimizer: "adam" }); // 3. 로스함수 옵티마이져, 경험적선택
+
+      /* 4.원본값 원데이터 값*/
+      const oriX = [
+        [0, 0],
+        [0, 1],
+        [1, 0],
+        [1, 1],
+      ];
+      const oriY = [0, 0, 0, 1];
+      /* 5.원본을 텐서로 변환 */
+      const xs = tf.tensor2d(oriX, [4, 2]);
+      const ys = tf.tensor2d(oriY, [4, 1]);
+
+      /* 6.핏, 훈련하기 */
+      const parms = {
+        batchSize: 32,
+        epochs: 700, // 반복훈련 수
+        callbacks: {
+          onEpochEnd: (epoch, logs) => {
+            console.log("Epoch", epoch, logs, "RMSE=>", Math.sqrt(logs.loss));
+          },
+        },
+      };
+
+      model.fit(xs, ys, parms); //parms 정해진 어떤 특정 값
+      /* 7.예측하기 */
+    </script>
+  </head>
+
+  <body></body>
+</html>

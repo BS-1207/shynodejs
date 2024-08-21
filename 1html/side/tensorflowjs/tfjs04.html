@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메모리관리 2(tidy)</title>
+    <!--다수를 자동으로 Garbage Collect하여 메모리 정리-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script>
+      const log = console.log;
+      const t1 = tf.tensor1d([1, 2, 3]);
+      log(tf.memory());
+      //t1.log().square().round().print(1);
+      const result = tf.tidy(() => t1.log().square().round());
+      result.print(1);
+      log(tf.memory());
+      t1.dispose();
+      log(tf.memory());
+    </script>
+  </head>
+  <body></body>
+</html>

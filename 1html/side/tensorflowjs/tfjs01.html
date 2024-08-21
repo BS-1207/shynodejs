@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>텐서의 차원(rank,shape,dtype)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script>
+      const t0 = tf.scalar(3.14); // 0차원 - 방향이 없는 값
+      t0.print(1);
+      console.log(tf);
+      const t1 = tf.tensor1d([1, 2, 3, 4, 5]); //1차원 // 배열 입장에서 [1,2,3]은 하나의 배열이므로 1차원
+      t1.print(1);
+      const t2 = tf.tensor2d([1, 2, 3, 4, 5, 6, 7, 8, 9], [3, 3]);
+      //const t2 = tf.tensor2d([[1,2,3],[4,5,6],[7,8,9]])
+      t2.print(1);
+      /*const t3 = tf.tensor3d([
+        [[1], [2], [3]],
+        [[4], [5], [6]],
+      ]);*/
+      const t3 = tf.tensor3d([1, 2, 3, 4, 5, 6], [2, 3, 1]);
+      t3.print(1);
+      const arr = [];
+      const arr2 = [];
+      Array(99)
+        .fill(0)
+        .forEach((v, i) => {
+          arr.push(i + 1);
+        });
+      Array(100)
+        .fill(0)
+        .forEach((v, i) => {
+          arr2.push(i + 1);
+        });
+      console.log(arr);
+      const t3arr = tf.tensor3d(arr, [3, 3, 11]);
+      const t3arr2 = tf.tensor3d(arr2, [5, 2, 10]);
+      t3arr.print(1);
+      t3arr2.print(1);
+    </script>
+  </head>
+  <body></body>
+</html>
